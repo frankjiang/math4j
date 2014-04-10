@@ -21,6 +21,11 @@ import java.util.List;
 public class MultiHashMap<K, V> extends MultiMap<K, V>
 {
 	/**
+	 * serialVersionUID.
+	 */
+	private static final long	serialVersionUID	= 3910837870815796510L;
+
+	/**
 	 * Construct an instance of <tt>MultiHashMap</tt>.
 	 * 
 	 * @param listType

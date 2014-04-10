@@ -22,6 +22,11 @@ import java.util.TreeMap;
 public class MultiTreeMap<K, V> extends MultiMap<K, V>
 {
 	/**
+	 * serialVersionUID.
+	 */
+	private static final long	serialVersionUID	= -8879110194462801985L;
+
+	/**
 	 * Construct an instance of <tt>MultiTreeMap</tt>.
 	 */
 	public MultiTreeMap()

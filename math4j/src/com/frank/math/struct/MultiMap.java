@@ -22,8 +22,12 @@ import java.util.Set;
  * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
  * @version 1.0.0
  */
-public abstract class MultiMap<K, V> implements Map<K, List<V>>
+public abstract class MultiMap<K, V> implements Map<K, List<V>>, java.io.Serializable
 {
+	/**
+	 * serialVersionUID.
+	 */
+	private static final long	serialVersionUID	= 4718399716167029093L;
 	/**
 	 * The inner map implementation.
 	 */
