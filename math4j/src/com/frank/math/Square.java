@@ -5,6 +5,8 @@
  */
 package com.frank.math;
 
+import com.frank.math.matrix.Matrix;
+
 /**
  * The square matrix class.
  * <p>

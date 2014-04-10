@@ -5,6 +5,8 @@
  */
 package com.frank.math;
 
+import com.frank.math.trans.DoubleFFT_1D;
+
 
 /**
  * The implementation of one dimensional Fast Fourier Transformation.

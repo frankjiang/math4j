@@ -18,7 +18,7 @@ public class Ray
 	/**
 	 * The accuracy of matching intersections of the ray.
 	 */
-	public static final double	ACCURACY	= 0.001;
+	protected double			accuracy	= 0.001;
 	/**
 	 * The radius of a right angle.
 	 */
@@ -106,7 +106,7 @@ public class Ray
 						break;
 					return false;
 			}
-			return equals(y, y0 + Math.tan(theta) * dx);
+			return equals(y, y0 + Math.tan(theta) * dx, accuracy);
 		}
 		else
 		// on axis
@@ -114,13 +114,13 @@ public class Ray
 			switch (quadrant)
 			{
 				default:// X+
-					return equals(y, y0) && dx >= 0;
+					return equals(y, y0, accuracy) && dx >= 0;
 				case -1:// Y+
-					return equals(x, x0) && dy >= 0;
+					return equals(x, x0, accuracy) && dy >= 0;
 				case -2:// X-
-					return equals(y, y0) && dx <= 0;
+					return equals(y, y0, accuracy) && dx <= 0;
 				case -3:// Y-
-					return equals(x, x0) && dy <= 0;
+					return equals(x, x0, accuracy) && dy <= 0;
 			}
 		}
 	}
@@ -142,11 +142,13 @@ public class Ray
 	 * 
 	 * @param d
 	 *            the specified value
+	 * @param accuracy
+	 *            the accuracy to set
 	 * @return the defaulted accuracy value
 	 */
-	public static double accuray(double d)
+	public static double accuray(double d, double accuracy)
 	{
-		return ((int) (d / ACCURACY)) * ACCURACY;
+		return ((int) (d / accuracy)) * accuracy;
 	}
 
 	/**
@@ -155,10 +157,32 @@ public class Ray
 	 * 
 	 * @param d1
 	 * @param d2
-	 * @return true if equals
+	 * @param accuracy
+	 * @return <code>true</code> if equals
 	 */
-	public static boolean equals(double d1, double d2)
+	public static boolean equals(double d1, double d2, double accuracy)
 	{
-		return Math.abs(d1 - d2) < ACCURACY;
+		return Math.abs(d1 - d2) < accuracy;
+	}
+
+	/**
+	 * Returns accuracy.
+	 * 
+	 * @return the accuracy
+	 */
+	public double getAccuracy()
+	{
+		return accuracy;
+	}
+
+	/**
+	 * Set accuracy.
+	 * 
+	 * @param accuracy
+	 *            the value of accuracy
+	 */
+	public void setAccuracy(double accuracy)
+	{
+		this.accuracy = accuracy;
 	}
 }

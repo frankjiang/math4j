@@ -6,6 +6,8 @@
  */
 package com.frank.math;
 
+import com.frank.math.trans.DoubleFFT_2D;
+
 
 /**
  * The implementation of two dimensional Fast Fourier Transformation.

@@ -16,6 +16,8 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import com.frank.math.struct.SearchMap;
+
 /**
  * The mathematics utilities, which involves the distance measure, angle
  * measure, area measure and statistics such as calculating the standard
