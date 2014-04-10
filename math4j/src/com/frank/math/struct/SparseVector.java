@@ -5,6 +5,9 @@
  */
 package com.frank.math.struct;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
@@ -29,7 +32,7 @@ import com.frank.math.Messages;
  * @version 1.0.0
  */
 public abstract class SparseVector<T extends Number> implements
-		java.io.Serializable
+		java.io.Serializable, java.util.Collection<T>
 {
 	/**
 	 * serialVersionUID.
@@ -322,14 +325,15 @@ public abstract class SparseVector<T extends Number> implements
 	 * If the sparse vector contains no non-zero elements, return <tt>0</tt>.
 	 * </p>
 	 * 
-	 * @return the maximum index, or <tt>0</tt> if the sparse vector contains no
+	 * @return the maximum index, or <tt>-1</tt> if the sparse vector contains
+	 *         no
 	 *         element.
 	 */
 	public java.lang.Integer getMaximumIndex()
 	{
 		java.lang.Integer index = map.lastKey();
 		if (index == null)
-			return 0;
+			return -1;
 		else
 			return index;
 	}
@@ -340,14 +344,15 @@ public abstract class SparseVector<T extends Number> implements
 	 * If the sparse vector contains no non-zero elements, return <tt>0</tt>.
 	 * </p>
 	 * 
-	 * @return the minimum index, or <tt>0</tt> if the sparse vector contains no
+	 * @return the minimum index, or <tt>-1</tt> if the sparse vector contains
+	 *         no
 	 *         element.
 	 */
 	public java.lang.Integer getMinimumIndex()
 	{
 		java.lang.Integer index = map.firstKey();
 		if (index == null)
-			return 0;
+			return -1;
 		else
 			return index;
 	}
@@ -385,8 +390,216 @@ public abstract class SparseVector<T extends Number> implements
 	 * 
 	 * @return the non-zero elements amount
 	 */
-	public int size()
+	public int nonZeroCount()
 	{
 		return map.size();
+	}
+
+	/**
+	 * @see java.util.Collection#size()
+	 */
+	@Override
+	public int size()
+	{
+		return getMaximumIndex() + 1;
+	}
+
+	/**
+	 * @see java.util.Collection#contains(java.lang.Object)
+	 */
+	@Override
+	public boolean contains(Object o)
+	{
+		return map.containsValue(o);
+	}
+
+	/**
+	 * @see java.util.Collection#iterator()
+	 */
+	@Override
+	public Iterator<T> iterator()
+	{
+		return map.values().iterator();
+	}
+
+	/**
+	 * @see java.util.Collection#toArray()
+	 */
+	@Override
+	public Object[] toArray()
+	{
+		Object[] a = new Object[size()];
+		Object zero = createZero();
+		for (Entry<java.lang.Integer, T> e : map.entrySet())
+			a[e.getKey()] = e.getValue();
+		for (int i = 0; i < a.length; i++)
+			if (a[i] == null)
+				a[i] = zero;
+		return a;
+	}
+
+	/**
+	 * Returns an array containing all of the elements in this collection.
+	 * If this collection makes any guarantees as to what order its elements
+	 * are returned by its iterator, this method must return the elements in
+	 * the same order.
+	 * <p>
+	 * If the specified destination size is less than the {@linkplain #size()
+	 * vector length}, the returned array will be cut off to the length of
+	 * specified size.
+	 * </p>
+	 * 
+	 * @param size
+	 *            the destination size
+	 * @return an array containing all of the elements in this collection
+	 */
+	public Object[] toArray(int size)
+	{
+		int length = size();
+		if (length < size)
+			length = size;
+		Object[] a = new Object[length];
+		Object zero = createZero();
+		java.lang.Integer key;
+		int bound = length - 1;
+		for (Entry<java.lang.Integer, T> e : map.entrySet())
+		{
+			key = e.getKey();
+			if (key < bound)
+				a[key] = e.getValue();
+		}
+		for (int i = 0; i < a.length; i++)
+			if (a[i] == null)
+				a[i] = zero;
+		return a;
+	}
+
+	/**
+	 * @see java.util.Collection#toArray(java.lang.Object[])
+	 */
+	@SuppressWarnings("hiding")
+	public <T> T[] toArray(T[] a)
+	{
+		int size = size();
+		if (a.length < size())
+			a = (T[]) java.lang.reflect.Array.newInstance(a.getClass()
+					.getComponentType(), size);
+		T zero = (T) createZero();
+		for (Entry e : map.entrySet())
+			a[(java.lang.Integer) e.getKey()] = (T) e.getValue();
+		for (int i = 0; i < a.length; i++)
+			if (a[i] == null)
+				a[i] = zero;
+		return a;
+	}
+
+	/**
+	 * Returns an array containing all of the elements in this collection;
+	 * the runtime type of the returned array is that of the specified array.
+	 * If the collection fits in the specified array, it is returned therein.
+	 * Otherwise, a new array is allocated with the runtime type of the
+	 * specified array and the size of this collection.
+	 * <p>
+	 * If the specified destination size is less than the {@linkplain #size()
+	 * vector length}, the returned array will be cut off to the length of
+	 * specified size.
+	 * </p>
+	 * 
+	 * @param size
+	 *            the destination size
+	 * @return an array containing all of the elements in this collection
+	 */
+	@SuppressWarnings("hiding")
+	public <T> T[] toArray(T[] a, int size)
+	{
+		if (a.length < size)
+			a = (T[]) java.lang.reflect.Array.newInstance(a.getClass()
+					.getComponentType(), size);
+		T zero = (T) createZero();
+		for (Entry e : map.entrySet())
+			a[(java.lang.Integer) e.getKey()] = (T) e.getValue();
+		for (int i = 0; i < a.length; i++)
+			if (a[i] == null)
+				a[i] = zero;
+		return a;
+	}
+
+	/**
+	 * @see java.util.Collection#add(java.lang.Object)
+	 */
+	@Override
+	public boolean add(T e)
+	{
+		insert(getMaximumIndex(), e);
+		return true;
+	}
+
+	/**
+	 * @see java.util.Collection#remove(java.lang.Object)
+	 */
+	@Override
+	public boolean remove(Object o)
+	{
+		LinkedList<java.lang.Integer> toRemove = new LinkedList<java.lang.Integer>();
+		for (Entry<java.lang.Integer, T> e : map.entrySet())
+			if (o.equals(e.getValue()))
+				toRemove.add(e.getKey());
+		for (java.lang.Integer key : toRemove)
+			map.remove(key);
+		return !toRemove.isEmpty();
+	}
+
+	/**
+	 * @see java.util.Collection#containsAll(java.util.Collection)
+	 */
+	@Override
+	public boolean containsAll(Collection<?> c)
+	{
+		return map.values().containsAll(c);
+	}
+
+	/**
+	 * @see java.util.Collection#addAll(java.util.Collection)
+	 */
+	@Override
+	public boolean addAll(Collection<? extends T> c)
+	{
+		int index = getMaximumIndex() + 1;
+		for (T e : c)
+			insert(index++, e);
+		return true;
+	}
+
+	/**
+	 * @see java.util.Collection#removeAll(java.util.Collection)
+	 */
+	@Override
+	public boolean removeAll(Collection<?> c)
+	{
+		LinkedList<java.lang.Integer> toRemove = new LinkedList<java.lang.Integer>();
+		for (Entry<java.lang.Integer, T> e : map.entrySet())
+			if (c.contains(e.getValue()))
+				toRemove.add(e.getKey());
+		for (java.lang.Integer key : toRemove)
+			map.remove(key);
+		return true;
+	}
+
+	/**
+	 * @see java.util.Collection#retainAll(java.util.Collection)
+	 */
+	@Override
+	public boolean retainAll(Collection<?> c)
+	{
+		return map.values().retainAll(c);
+	}
+
+	/**
+	 * @see java.util.Collection#clear()
+	 */
+	@Override
+	public void clear()
+	{
+		map.clear();
 	}
 }
