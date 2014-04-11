@@ -3731,4 +3731,72 @@ public class MathUtils
 		}
 		return r;
 	}
+	
+	/**
+	 * Returns the largest (closest to positive infinity) {@code double} value
+	 * that is less than or equal to the
+	 * argument and is equal to a mathematical integer. Special cases:
+	 * <ul>
+	 * <li>If the argument value is already equal to a mathematical integer,
+	 * then the result is the same as the argument.</li>
+	 * <li>If the argument is NaN or an infinity or positive zero or negative
+	 * zero, then the result is the same as the argument.</li>
+	 * </ul>
+	 * <p>
+	 * This method is different from the {@linkplain Math#floor(double) native
+	 * floor method}, this method can avoid adding up error. If the value is has
+	 * the smaller distance between <code>d</code> and <code>(int) a</code> than
+	 * use (int) a to represent it.
+	 * </p>
+	 * 
+	 * @param a
+	 *            a value.
+	 * @param accuracy
+	 *            the accuracy for judging adding up error
+	 * @return the largest (closest to positive infinity)
+	 *         floating-point value that less than or equal to the argument
+	 *         and is equal to a mathematical integer.
+	 */
+	public static long floor(double a, double accuracy)
+	{
+		if (accuracy > a - (long) a)
+			return (int) a;
+		else
+			return (int) Math.floor(a);
+	}
+
+	/**
+	 * Returns the smallest (closest to negative infinity) {@code double} value
+	 * that is greater than or equal to the
+	 * argument and is equal to a mathematical integer. Special cases:
+	 * <ul>
+	 * <li>If the argument value is already equal to a mathematical integer,
+	 * then the result is the same as the argument.</li>
+	 * <li>If the argument is NaN or an infinity or positive zero or negative
+	 * zero, then the result is the same as the argument.</li>
+	 * <li>If the argument value is less than zero but greater than -1.0, then
+	 * the result is negative zero.</li>
+	 * </ul>
+	 * Note that the value of {@code Math.ceil(x)} is exactly the
+	 * value of {@code -Math.floor(-x)}.
+	 * <p>
+	 * This method is different from the {@linkplain Math#floor(double) native
+	 * floor method}, this method can avoid adding up error. If the value is has
+	 * the smaller distance between <code>d</code> and <code>(int) a</code> than
+	 * use (int) a to represent it.
+	 * </p>
+	 * 
+	 * @param a
+	 *            a value.
+	 * @return the smallest (closest to negative infinity)
+	 *         floating-point value that is greater than or equal to
+	 *         the argument and is equal to a mathematical integer.
+	 */
+	public static long ceil(double a, double accuracy)
+	{
+		if (accuracy > a - (long) a)
+			return (long) a;
+		else
+			return (long) Math.ceil(a);
+	}
 }
