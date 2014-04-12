@@ -337,6 +337,9 @@ public class MathUtils
 
 	/**
 	 * Combined sorting, which sort in the natural order of the specified key.
+	 * <p>
+	 * The data in the original array will also be sorted to the natural order.
+	 * </p>
 	 * 
 	 * @param <T>
 	 *            The type of the specified key.
@@ -382,7 +385,10 @@ public class MathUtils
 			a[i] = new Bean(data[i], keys[i]);
 		Arrays.sort(a);
 		for (int i = 0; i < data.length; i++)
+		{
 			data[i] = a[i].node;
+			keys[i] = a[i].key;
+		}
 		return data;
 	}
 
@@ -3731,7 +3737,7 @@ public class MathUtils
 		}
 		return r;
 	}
-	
+
 	/**
 	 * Returns the largest (closest to positive infinity) {@code double} value
 	 * that is less than or equal to the
