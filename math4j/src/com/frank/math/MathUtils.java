@@ -402,6 +402,85 @@ public class MathUtils
 	 * @param keys
 	 *            The sorting keys.
 	 * @return The sorted data array.
+	 * @exception IllegalAccessException
+	 *                if the class or its nullary
+	 *                constructor is not accessible.
+	 * @exception InstantiationException
+	 *                if this {@code Class} represents an abstract class,
+	 *                an interface, an array class, a primitive type, or void;
+	 *                or if the class has no nullary constructor;
+	 *                or if the instantiation fails for some other reason.
+	 * @exception ExceptionInInitializerError
+	 *                if the initialization
+	 *                provoked by this method fails.
+	 * @exception SecurityException
+	 *                If a security manager, <i>s</i>, is present and any of the
+	 *                following conditions is met:
+	 *                <ul>
+	 *                <li>invocation of
+	 *                {@link SecurityManager#checkMemberAccess
+	 *                s.checkMemberAccess(this, Member.PUBLIC)} denies creation
+	 *                of new instances of this class
+	 *                <li>the caller's class loader is not the same as or an
+	 *                ancestor of the class loader for the current class and
+	 *                invocation of {@link SecurityManager#checkPackageAccess
+	 *                s.checkPackageAccess()} denies access to the package of
+	 *                this class
+	 *                </ul>
+	 */
+	public static final <T> List<T> combineSort(List<T> data,
+			List<? extends Comparable> keys) throws InstantiationException,
+			IllegalAccessException
+	{
+		if (data.size() != keys.size())
+			throw new IllegalArgumentException(
+					Messages.getString("MathUtils.2")); //$NON-NLS-1$
+		/**
+		 * Sorting structure.
+		 * 
+		 * @author Frank Jiang
+		 * @version 1.0.0
+		 */
+		class Bean implements java.lang.Comparable<Bean>
+		{
+			public Comparable	key;
+			public T			node;
+
+			public Bean(T node, Comparable key)
+			{
+				this.node = node;
+				this.key = key;
+			}
+
+			/**
+			 * @see java.lang.Comparable#compareTo(java.lang.Object)
+			 */
+			@Override
+			public int compareTo(Bean o)
+			{
+				return key.compareTo(o.key);
+			}
+		}
+		Bean[] a = new Bean[data.size()];
+		for (int i = 0; i < data.size(); i++)
+			a[i] = new Bean(data.get(i), keys.get(i));
+		Arrays.sort(a);
+		List<T> list = data.getClass().newInstance();
+		for (int i = 0; i < data.size(); i++)
+			list.add(a[i].node);
+		return list;
+	}
+
+	/**
+	 * Combined sorting, which sort in the natural order of the specified key.
+	 * 
+	 * @param <T>
+	 *            The type of the specified key.
+	 * @param data
+	 *            The data to sort.
+	 * @param keys
+	 *            The sorting keys.
+	 * @return The sorted data array.
 	 */
 	public static final <T> T[] combineSort(T[] data, double[] keys)
 	{
