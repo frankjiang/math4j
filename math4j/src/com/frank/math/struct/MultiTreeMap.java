@@ -7,8 +7,12 @@
  */
 package com.frank.math.struct;
 
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.NavigableMap;
+import java.util.NavigableSet;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
@@ -19,7 +23,8 @@ import java.util.TreeMap;
  * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
  * @version 1.0.0
  */
-public class MultiTreeMap<K, V> extends MultiMap<K, V>
+public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
+		NavigableMap<K, List<V>>
 {
 	/**
 	 * serialVersionUID.
@@ -43,5 +48,233 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V>
 	public MultiTreeMap(Class<? extends List> listType)
 	{
 		super(new TreeMap(), listType);
+	}
+
+	/**
+	 * Returns the real tree map.
+	 * 
+	 * @return the real tree map.
+	 */
+	protected TreeMap<K, List<V>> getRealMap()
+	{
+		return (TreeMap<K, List<V>>) map;
+	}
+
+	/**
+	 * @see java.util.SortedMap#comparator()
+	 */
+	@Override
+	public Comparator<? super K> comparator()
+	{
+		return getRealMap().comparator();
+	}
+
+	/**
+	 * @see java.util.SortedMap#firstKey()
+	 */
+	@Override
+	public K firstKey()
+	{
+		return getRealMap().firstKey();
+	}
+
+	/**
+	 * @see java.util.SortedMap#lastKey()
+	 */
+	@Override
+	public K lastKey()
+	{
+		return getRealMap().lastKey();
+	}
+
+	/**
+	 * @see java.util.NavigableMap#lowerEntry(java.lang.Object)
+	 */
+	@Override
+	public Entry<K, List<V>> lowerEntry(K key)
+	{
+		return getRealMap().lowerEntry(key);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#lowerKey(java.lang.Object)
+	 */
+	@Override
+	public K lowerKey(K key)
+	{
+		return getRealMap().lowerKey(key);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#floorEntry(java.lang.Object)
+	 */
+	@Override
+	public Entry<K, List<V>> floorEntry(K key)
+	{
+		return getRealMap().floorEntry(key);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#floorKey(java.lang.Object)
+	 */
+	@Override
+	public K floorKey(K key)
+	{
+		return getRealMap().floorKey(key);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#ceilingEntry(java.lang.Object)
+	 */
+	@Override
+	public Entry<K, List<V>> ceilingEntry(K key)
+	{
+		return getRealMap().ceilingEntry(key);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#ceilingKey(java.lang.Object)
+	 */
+	@Override
+	public K ceilingKey(K key)
+	{
+		return getRealMap().ceilingKey(key);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#higherEntry(java.lang.Object)
+	 */
+	@Override
+	public Entry<K, List<V>> higherEntry(K key)
+	{
+		return getRealMap().higherEntry(key);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#higherKey(java.lang.Object)
+	 */
+	@Override
+	public K higherKey(K key)
+	{
+		return getRealMap().higherKey(key);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#firstEntry()
+	 */
+	@Override
+	public Entry<K, List<V>> firstEntry()
+	{
+		return getRealMap().firstEntry();
+	}
+
+	/**
+	 * @see java.util.NavigableMap#lastEntry()
+	 */
+	@Override
+	public Entry<K, List<V>> lastEntry()
+	{
+		return getRealMap().lastEntry();
+	}
+
+	/**
+	 * @see java.util.NavigableMap#pollFirstEntry()
+	 */
+	@Override
+	public Entry<K, List<V>> pollFirstEntry()
+	{
+		return getRealMap().pollFirstEntry();
+	}
+
+	/**
+	 * @see java.util.NavigableMap#pollLastEntry()
+	 */
+	@Override
+	public Entry<K, List<V>> pollLastEntry()
+	{
+		return getRealMap().pollLastEntry();
+	}
+
+	/**
+	 * @see java.util.NavigableMap#descendingMap()
+	 */
+	@Override
+	public NavigableMap<K, List<V>> descendingMap()
+	{
+		return getRealMap().descendingMap();
+	}
+
+	/**
+	 * @see java.util.NavigableMap#navigableKeySet()
+	 */
+	@Override
+	public NavigableSet<K> navigableKeySet()
+	{
+		return getRealMap().navigableKeySet();
+	}
+
+	/**
+	 * @see java.util.NavigableMap#descendingKeySet()
+	 */
+	@Override
+	public NavigableSet<K> descendingKeySet()
+	{
+		return getRealMap().descendingKeySet();
+	}
+
+	/**
+	 * @see java.util.NavigableMap#subMap(java.lang.Object, boolean,
+	 *      java.lang.Object, boolean)
+	 */
+	@Override
+	public NavigableMap<K, List<V>> subMap(K fromKey, boolean fromInclusive,
+			K toKey, boolean toInclusive)
+	{
+		return getRealMap().subMap(fromKey, fromInclusive, toKey, toInclusive);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#headMap(java.lang.Object, boolean)
+	 */
+	@Override
+	public NavigableMap<K, List<V>> headMap(K toKey, boolean inclusive)
+	{
+		return getRealMap().headMap(toKey, inclusive);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#tailMap(java.lang.Object, boolean)
+	 */
+	@Override
+	public NavigableMap<K, List<V>> tailMap(K fromKey, boolean inclusive)
+	{
+		return getRealMap().tailMap(fromKey, inclusive);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#subMap(java.lang.Object, java.lang.Object)
+	 */
+	@Override
+	public SortedMap<K, List<V>> subMap(K fromKey, K toKey)
+	{
+		return getRealMap().subMap(fromKey, toKey);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#headMap(java.lang.Object)
+	 */
+	@Override
+	public SortedMap<K, List<V>> headMap(K toKey)
+	{
+		return getRealMap().headMap(toKey);
+	}
+
+	/**
+	 * @see java.util.NavigableMap#tailMap(java.lang.Object)
+	 */
+	@Override
+	public SortedMap<K, List<V>> tailMap(K fromKey)
+	{
+		return getRealMap().tailMap(fromKey);
 	}
 }
