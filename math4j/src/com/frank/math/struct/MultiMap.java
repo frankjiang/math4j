@@ -22,12 +22,13 @@ import java.util.Set;
  * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
  * @version 1.0.0
  */
-public abstract class MultiMap<K, V> implements Map<K, List<V>>, java.io.Serializable
+public abstract class MultiMap<K, V> implements Map<K, List<V>>,
+		java.io.Serializable
 {
 	/**
 	 * serialVersionUID.
 	 */
-	private static final long	serialVersionUID	= 4718399716167029093L;
+	private static final long		serialVersionUID	= 4718399716167029093L;
 	/**
 	 * The inner map implementation.
 	 */
@@ -45,8 +46,7 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>, java.io.Seriali
 	 * @param listType
 	 *            the list type
 	 */
-	protected MultiMap(Map<K, List<V>> map,
-			Class<? extends List> listType)
+	protected MultiMap(Map<K, List<V>> map, Class<? extends List> listType)
 	{
 		this.map = map;
 		this.listType = listType;
@@ -247,5 +247,14 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>, java.io.Seriali
 	public Class<? extends List> getListType()
 	{
 		return listType;
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		return map.toString();
 	}
 }
