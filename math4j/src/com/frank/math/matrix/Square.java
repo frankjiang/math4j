@@ -3,9 +3,8 @@
  * reserved.
  * Square.java is built in 2013-7-13.
  */
-package com.frank.math;
+package com.frank.math.matrix;
 
-import com.frank.math.matrix.Matrix;
 
 /**
  * The square matrix class.

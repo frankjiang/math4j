@@ -9,7 +9,7 @@ package com.frank.math.struct;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.Collection;
 import java.util.NavigableMap;
 import java.util.NavigableSet;
 import java.util.SortedMap;
@@ -24,7 +24,7 @@ import java.util.TreeMap;
  * @version 1.0.0
  */
 public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
-		NavigableMap<K, List<V>>
+		NavigableMap<K, Collection<V>>
 {
 	/**
 	 * serialVersionUID.
@@ -45,7 +45,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @param listType
 	 *            the inner list type
 	 */
-	public MultiTreeMap(Class<? extends List> listType)
+	public MultiTreeMap(Class<? extends Collection> listType)
 	{
 		super(new TreeMap(), listType);
 	}
@@ -55,9 +55,9 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * 
 	 * @return the real tree map.
 	 */
-	protected TreeMap<K, List<V>> getRealMap()
+	protected TreeMap<K, Collection<V>> getRealMap()
 	{
-		return (TreeMap<K, List<V>>) map;
+		return (TreeMap<K, Collection<V>>) map;
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#lowerEntry(java.lang.Object)
 	 */
 	@Override
-	public Entry<K, List<V>> lowerEntry(K key)
+	public Entry<K, Collection<V>> lowerEntry(K key)
 	{
 		return getRealMap().lowerEntry(key);
 	}
@@ -109,7 +109,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#floorEntry(java.lang.Object)
 	 */
 	@Override
-	public Entry<K, List<V>> floorEntry(K key)
+	public Entry<K, Collection<V>> floorEntry(K key)
 	{
 		return getRealMap().floorEntry(key);
 	}
@@ -127,7 +127,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#ceilingEntry(java.lang.Object)
 	 */
 	@Override
-	public Entry<K, List<V>> ceilingEntry(K key)
+	public Entry<K, Collection<V>> ceilingEntry(K key)
 	{
 		return getRealMap().ceilingEntry(key);
 	}
@@ -145,7 +145,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#higherEntry(java.lang.Object)
 	 */
 	@Override
-	public Entry<K, List<V>> higherEntry(K key)
+	public Entry<K, Collection<V>> higherEntry(K key)
 	{
 		return getRealMap().higherEntry(key);
 	}
@@ -163,7 +163,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#firstEntry()
 	 */
 	@Override
-	public Entry<K, List<V>> firstEntry()
+	public Entry<K, Collection<V>> firstEntry()
 	{
 		return getRealMap().firstEntry();
 	}
@@ -172,7 +172,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#lastEntry()
 	 */
 	@Override
-	public Entry<K, List<V>> lastEntry()
+	public Entry<K, Collection<V>> lastEntry()
 	{
 		return getRealMap().lastEntry();
 	}
@@ -181,7 +181,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#pollFirstEntry()
 	 */
 	@Override
-	public Entry<K, List<V>> pollFirstEntry()
+	public Entry<K, Collection<V>> pollFirstEntry()
 	{
 		return getRealMap().pollFirstEntry();
 	}
@@ -190,7 +190,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#pollLastEntry()
 	 */
 	@Override
-	public Entry<K, List<V>> pollLastEntry()
+	public Entry<K, Collection<V>> pollLastEntry()
 	{
 		return getRealMap().pollLastEntry();
 	}
@@ -199,7 +199,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#descendingMap()
 	 */
 	@Override
-	public NavigableMap<K, List<V>> descendingMap()
+	public NavigableMap<K, Collection<V>> descendingMap()
 	{
 		return getRealMap().descendingMap();
 	}
@@ -227,7 +227,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 *      java.lang.Object, boolean)
 	 */
 	@Override
-	public NavigableMap<K, List<V>> subMap(K fromKey, boolean fromInclusive,
+	public NavigableMap<K, Collection<V>> subMap(K fromKey, boolean fromInclusive,
 			K toKey, boolean toInclusive)
 	{
 		return getRealMap().subMap(fromKey, fromInclusive, toKey, toInclusive);
@@ -237,7 +237,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#headMap(java.lang.Object, boolean)
 	 */
 	@Override
-	public NavigableMap<K, List<V>> headMap(K toKey, boolean inclusive)
+	public NavigableMap<K, Collection<V>> headMap(K toKey, boolean inclusive)
 	{
 		return getRealMap().headMap(toKey, inclusive);
 	}
@@ -246,7 +246,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#tailMap(java.lang.Object, boolean)
 	 */
 	@Override
-	public NavigableMap<K, List<V>> tailMap(K fromKey, boolean inclusive)
+	public NavigableMap<K, Collection<V>> tailMap(K fromKey, boolean inclusive)
 	{
 		return getRealMap().tailMap(fromKey, inclusive);
 	}
@@ -255,7 +255,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#subMap(java.lang.Object, java.lang.Object)
 	 */
 	@Override
-	public SortedMap<K, List<V>> subMap(K fromKey, K toKey)
+	public SortedMap<K, Collection<V>> subMap(K fromKey, K toKey)
 	{
 		return getRealMap().subMap(fromKey, toKey);
 	}
@@ -264,7 +264,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#headMap(java.lang.Object)
 	 */
 	@Override
-	public SortedMap<K, List<V>> headMap(K toKey)
+	public SortedMap<K, Collection<V>> headMap(K toKey)
 	{
 		return getRealMap().headMap(toKey);
 	}
@@ -273,7 +273,7 @@ public class MultiTreeMap<K, V> extends MultiMap<K, V> implements
 	 * @see java.util.NavigableMap#tailMap(java.lang.Object)
 	 */
 	@Override
-	public SortedMap<K, List<V>> tailMap(K fromKey)
+	public SortedMap<K, Collection<V>> tailMap(K fromKey)
 	{
 		return getRealMap().tailMap(fromKey);
 	}

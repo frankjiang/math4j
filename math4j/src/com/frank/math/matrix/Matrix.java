@@ -15,6 +15,7 @@ import com.frank.math.Messages;
  * {@linkplain SingularValueDecomposition}.
  * </p>
  * 
+ * @author Jama
  * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
  * @version 1.1.0
  */
@@ -32,14 +33,14 @@ public class Matrix extends SerializableMatrix<Double>
 	 * @param b
 	 * @return a / b
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
 	 */
 	public static Matrix divide(Matrix a, Matrix b)
 			throws IllegalArgumentException
 	{
 		if (a.width != b.width || a.height != b.height)
 			throw new IllegalArgumentException(String.format(
-					Messages.getString("Matrix.0"), a.width, //$NON-NLS-1$
+					Messages.getString("Matrix.DimensionNotAgree"), a.width, //$NON-NLS-1$
 					a.height, b.width, b.height));
 		Matrix d = new Matrix(a.width, a.height);
 		for (int x = 0; x < a.width; x++)
@@ -55,7 +56,7 @@ public class Matrix extends SerializableMatrix<Double>
 	 * @param k
 	 * @return m * k
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
 	 */
 	public static Matrix multiply(Matrix m, double k)
 			throws IllegalArgumentException
@@ -74,16 +75,16 @@ public class Matrix extends SerializableMatrix<Double>
 	 * @param b
 	 * @return a * b
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
 	 */
 	public static Matrix multiply(Matrix a, Matrix b)
 			throws IllegalArgumentException
 	{
-		if (a.height != b.width)
+		if (a.width != b.height)
 			throw new IllegalArgumentException(String.format(
-					Messages.getString("Matrix.1"), //$NON-NLS-1$
+					Messages.getString("Matrix.CannotMultiply"), //$NON-NLS-1$
 					a.width, a.height, b.width, b.height));
-		Matrix d = new Matrix(a.height, b.width);
+		Matrix d = new Matrix(a.width, b.height);
 		int s = a.width;
 		double tmp;
 		for (int x = 0; x < a.height; x++)
@@ -104,14 +105,14 @@ public class Matrix extends SerializableMatrix<Double>
 	 * @param b
 	 * @return a + b
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
 	 */
 	public static Matrix plus(Matrix a, Matrix b)
 			throws IllegalArgumentException
 	{
 		if (a.width != b.width || a.height != b.height)
 			throw new IllegalArgumentException(String.format(
-					Messages.getString("Matrix.2"), a.width, //$NON-NLS-1$
+					Messages.getString("Matrix.DimensionNotAgree"), a.width, //$NON-NLS-1$
 					a.height, b.width, b.height));
 		Matrix d = new Matrix(a.width, a.height);
 		for (int x = 0; x < a.width; x++)
@@ -127,14 +128,14 @@ public class Matrix extends SerializableMatrix<Double>
 	 * @param b
 	 * @return a - b
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
 	 */
 	public static Matrix subtract(Matrix a, Matrix b)
 			throws IllegalArgumentException
 	{
 		if (a.width != b.width || a.height != b.height)
 			throw new IllegalArgumentException(String.format(
-					Messages.getString("Matrix.3"), a.width, //$NON-NLS-1$
+					Messages.getString("Matrix.DimensionNotAgree"), a.width, //$NON-NLS-1$
 					a.height, b.width, b.height));
 		Matrix d = new Matrix(a.width, a.height);
 		for (int x = 0; x < a.width; x++)
@@ -181,7 +182,7 @@ public class Matrix extends SerializableMatrix<Double>
 	 * @param matrix
 	 *            the specified two-dimensional <tt>double</tt> array
 	 */
-	protected Matrix(double[][] matrix)
+	public Matrix(double[][] matrix)
 	{
 		height = matrix.length;
 		width = matrix[0].length;
@@ -243,9 +244,29 @@ public class Matrix extends SerializableMatrix<Double>
 	 *            the matrix to divide
 	 * @return curr / m
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
 	 */
 	public Matrix leftDivide(Matrix d) throws IllegalArgumentException
+	{
+		realloc(Matrix.divide(this, d));
+		return this;
+	}
+
+	/**
+	 * Left divide the current matrix and returns the result of division. <br>
+	 * <code>curr = curr / m</code>
+	 * <p>
+	 * This method has the same affect as {@linkplain #leftDivide(Matrix)}.
+	 * </p>
+	 * 
+	 * @param d
+	 *            the matrix to divide
+	 * @return curr / m
+	 * @throws IllegalArgumentException
+	 *             if the matrix dimensions not agree
+	 * @see #leftDivide(Matrix)
+	 */
+	public Matrix divide(Matrix d) throws IllegalArgumentException
 	{
 		realloc(Matrix.divide(this, d));
 		return this;
@@ -259,7 +280,7 @@ public class Matrix extends SerializableMatrix<Double>
 	 *            the specified matrix
 	 * @return the result of multiplication
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
 	 */
 	public Matrix leftMultiply(Matrix d) throws IllegalArgumentException
 	{
@@ -268,19 +289,36 @@ public class Matrix extends SerializableMatrix<Double>
 	}
 
 	/**
-	 * Multiply the current matrix with specified matrix. <br>
+	 * Multiply the current matrix with specified value. <br>
 	 * <code>curr = curr * k</code>
+	 * 
+	 * @param d
+	 *            the specified value
+	 * @return the result of multiplication
+	 */
+	public Matrix multiply(double k)
+	{
+		realloc(Matrix.multiply(this, k));
+		return this;
+	}
+
+	/**
+	 * Multiply the current matrix with specified matrix. <br>
+	 * <code>curr = curr * d</code>
+	 * <p>
+	 * This method has the same affect as {@linkplain #leftMultiply(Matrix)}.
+	 * </p>
 	 * 
 	 * @param d
 	 *            the specified matrix
 	 * @return the result of multiplication
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
+	 * @see #leftMultiply(Matrix)
 	 */
-	public Matrix multiply(double k) throws IllegalArgumentException
+	public Matrix multiply(Matrix d) throws IllegalArgumentException
 	{
-		realloc(Matrix.multiply(this, k));
-		return this;
+		return leftMultiply(d);
 	}
 
 	/**
@@ -327,7 +365,7 @@ public class Matrix extends SerializableMatrix<Double>
 	 *            the specified matrix
 	 * @return the result of plus
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
 	 */
 	public Matrix plus(Matrix d) throws IllegalArgumentException
 	{
@@ -353,7 +391,7 @@ public class Matrix extends SerializableMatrix<Double>
 	 *            the matrix to divide
 	 * @return m / curr
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
 	 */
 	public Matrix rightDivide(Matrix d) throws IllegalArgumentException
 	{
@@ -369,7 +407,7 @@ public class Matrix extends SerializableMatrix<Double>
 	 *            the specified matrix
 	 * @return the result of multiplication
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
 	 */
 	public Matrix rightMultiply(Matrix d) throws IllegalArgumentException
 	{
@@ -476,7 +514,7 @@ public class Matrix extends SerializableMatrix<Double>
 	 *            the specified matrix
 	 * @return the result of subtraction
 	 * @throws IllegalArgumentException
-	 *             throws if the matrix dimensions not match
+	 *             if the matrix dimensions not agree
 	 */
 	public Matrix subtract(Matrix d) throws IllegalArgumentException
 	{
@@ -578,7 +616,7 @@ public class Matrix extends SerializableMatrix<Double>
 	{
 		if (d.length != m.height)
 			throw new IllegalArgumentException(String.format(
-					Messages.getString("Matrix.5"), //$NON-NLS-1$
+					Messages.getString("Matrix.VectorDimensionNotMatch"), //$NON-NLS-1$
 					d.length, m.height));
 		Matrix p = new Matrix(m.width + 1, m.height);
 		for (int x = 0; x < m.width; x++)
@@ -587,5 +625,30 @@ public class Matrix extends SerializableMatrix<Double>
 		for (int y = 0; y < m.height; y++)
 			p.set(m.width, y, d[y]);
 		return p;
+	}
+
+	public Matrix inverse()
+	{
+		Matrix e = Matrix.identity(width, height);
+		return (width == height ? (new LUDecomposition(this)).solve(e)
+				: (new QRDecomposition(this)).solve(e));
+	}
+
+	/**
+	 * Generate identity matrix
+	 * 
+	 * @param width
+	 *            the width of the matrix
+	 * @param height
+	 *            the height of the matrix
+	 * @return a specified dimension identity matrix
+	 */
+	public static Matrix identity(int width, int height)
+	{
+		Matrix m = new Matrix(width, height, 0.0);
+		int size = width < height ? width : height;
+		for (int i = 0; i < size; i++)
+			m.set(i, i, 1);
+		return m;
 	}
 }

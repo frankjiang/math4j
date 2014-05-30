@@ -28,7 +28,7 @@ public class MultiHashMap<K, V> extends MultiMap<K, V>
 	/**
 	 * Construct an instance of <tt>MultiHashMap</tt>.
 	 * 
-	 * @param listType
+	 * @param collectionType
 	 *            the inner list type
 	 */
 	public MultiHashMap()

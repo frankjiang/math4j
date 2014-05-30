@@ -16,6 +16,7 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import com.frank.math.matrix.Matrix;
 import com.frank.math.struct.SearchMap;
 
 /**
@@ -39,7 +40,7 @@ public class MathUtils
 	 *            The Y-axis coordinate of the vector.
 	 * @return The angle angle in radians (0,2&pi;).
 	 */
-	static final public double angle(double x, double y)
+	public static final double angle(double x, double y)
 	{
 		if (x > 0.0)
 		{
@@ -86,7 +87,7 @@ public class MathUtils
 	 *            The Y-axis coordinate of the second vector.
 	 * @return The angle of the two vectors, in degree.
 	 */
-	static final public double angle(double x1, double y1, double x2, double y2)
+	public static final double angle(double x1, double y1, double x2, double y2)
 	{
 		return (MathUtils.angle(x1, y1) - MathUtils.angle(x2, y2)) * 180.0
 				/ Math.PI;
@@ -104,7 +105,7 @@ public class MathUtils
 	 *            The right corner point of the angle.
 	 * @return The angle in degree.
 	 */
-	static final public double angle180(Point2D top, Point2D corner1,
+	public static final double angle180(Point2D top, Point2D corner1,
 			Point2D corner2)
 	{
 		return Math.toDegrees(anglePI(top, corner1, corner2));
@@ -121,7 +122,7 @@ public class MathUtils
 	 *            The right corner point of the angle.
 	 * @return The angle in degree.
 	 */
-	static final public double angle360(Point2D top, Point2D corner1,
+	public static final double angle360(Point2D top, Point2D corner1,
 			Point2D corner2)
 	{
 		double a1 = Math.toDegrees(Math.atan2(corner1.getY() - top.getY(),
@@ -148,7 +149,7 @@ public class MathUtils
 	 *            The right corner point of the angle.
 	 * @return The angle in radius.
 	 */
-	static final public double anglePI(Point2D top, Point2D corner1,
+	public static final double anglePI(Point2D top, Point2D corner1,
 			Point2D corner2)
 	{
 		double x1 = corner1.getX() - top.getX();
@@ -166,10 +167,11 @@ public class MathUtils
 	 *            The number collection.
 	 * @return The average.
 	 */
-	static final public double average(Collection<? extends Number> c)
+	public static final double average(Collection<? extends Number> c)
 	{
 		if (c.isEmpty())
-			throw new NullPointerException(Messages.getString("MathUtils.0")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double summary = 0.0;
 		for (Number n : c)
 			summary += n.doubleValue();
@@ -183,7 +185,7 @@ public class MathUtils
 	 *            the specified complexes
 	 * @return the average
 	 */
-	static final public Complex average(Complex[] x)
+	public static final Complex average(Complex[] x)
 	{
 		Complex c = MathUtils.summary(x);
 		c.real /= x.length;
@@ -198,19 +200,7 @@ public class MathUtils
 	 *            the specified <tt>double</tt> array
 	 * @return the average
 	 */
-	static final public double average(double[] x)
-	{
-		return MathUtils.summary(x) / (double) x.length;
-	}
-
-	/**
-	 * Returns the average of specified <tt>Double</tt> array.
-	 * 
-	 * @param x
-	 *            the specified <tt>Double</tt> array
-	 * @return the average
-	 */
-	static final public double average(Double[] x)
+	public static final double average(double[] x)
 	{
 		return MathUtils.summary(x) / (double) x.length;
 	}
@@ -222,19 +212,7 @@ public class MathUtils
 	 *            the specified <tt>float</tt> array
 	 * @return the average
 	 */
-	static final public double average(float[] x)
-	{
-		return MathUtils.summary(x) / (double) x.length;
-	}
-
-	/**
-	 * Returns the average of specified <tt>Float</tt> array.
-	 * 
-	 * @param x
-	 *            the specified <tt>Float</tt> array
-	 * @return the average
-	 */
-	static final public double average(Float[] x)
+	public static final double average(float[] x)
 	{
 		return MathUtils.summary(x) / (double) x.length;
 	}
@@ -243,22 +221,10 @@ public class MathUtils
 	 * Returns the average of specified <tt>int</tt> array.
 	 * 
 	 * @param x
-	 *            the specified <tt>int</tt> array
+	 *            the specified <tt>int</tt> matrix
 	 * @return the average
 	 */
-	static final public double average(int[] x)
-	{
-		return MathUtils.summary(x) / (double) x.length;
-	}
-
-	/**
-	 * Returns the average of specified <tt>Integer</tt> array.
-	 * 
-	 * @param x
-	 *            the specified <tt>Integer</tt> array
-	 * @return the average
-	 */
-	static final public double average(Integer[] x)
+	public static final double average(int[] x)
 	{
 		return MathUtils.summary(x) / (double) x.length;
 	}
@@ -270,19 +236,19 @@ public class MathUtils
 	 *            the specified <tt>long</tt> array
 	 * @return the average
 	 */
-	static final public double average(long[] x)
+	public static final double average(long[] x)
 	{
 		return MathUtils.summary(x) / (double) x.length;
 	}
 
 	/**
-	 * Returns the average of specified <tt>Long</tt> array.
+	 * Returns the average of <code>x</code>.
 	 * 
 	 * @param x
-	 *            the specified <tt>Long</tt> array
+	 *            the specified array
 	 * @return the average
 	 */
-	static final public double average(Long[] x)
+	public static final <T extends Number> double average(T[] x)
 	{
 		return MathUtils.summary(x) / (double) x.length;
 	}
@@ -314,11 +280,11 @@ public class MathUtils
 	 * @param value
 	 * @return the amount of combinations
 	 */
-	static final public long combine(int base, int value)
+	public static final long combine(int base, int value)
 	{
 		if (value > base || base < 0 || value < 0)
 			throw new IllegalArgumentException(String.format(
-					Messages.getString("MathUtils.1"), base, //$NON-NLS-1$
+					Messages.getString("MathUtils.IllegalBaseAndValue"), base, //$NON-NLS-1$
 					value));
 		int min = base - value;
 		int max = value;
@@ -353,7 +319,7 @@ public class MathUtils
 	{
 		if (data.length != keys.length)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.2")); //$NON-NLS-1$
+					Messages.getString("MathUtils.UncomatibleKeyAndData")); //$NON-NLS-1$
 		/**
 		 * Sorting structure.
 		 * 
@@ -600,7 +566,7 @@ public class MathUtils
 	 *            Point2D B.
 	 * @return The distance.
 	 */
-	static final public double distance(Point2D a, Point2D b)
+	public static final double distance(Point2D a, Point2D b)
 	{
 		return Point2D.distance(a.getX(), a.getY(), b.getX(), b.getY());
 	}
@@ -614,7 +580,7 @@ public class MathUtils
 	 *            Straight line L.
 	 * @return The distance.
 	 */
-	static final public double distance(Point2D x, StraightLine l)
+	public static final double distance(Point2D x, StraightLine l)
 	{
 		double c[] = l.getCoefficients();
 		return Math.abs(c[0] * x.getX() + c[1] * x.getY() + c[2])
@@ -676,11 +642,11 @@ public class MathUtils
 	 *            the specified value
 	 * @return the factorial
 	 */
-	static final public long factorial(int value)
+	public static final long factorial(int value)
 	{
 		if (value > 20)
 			throw new IllegalArgumentException(String.format(
-					Messages.getString("MathUtils.3"), //$NON-NLS-1$
+					Messages.getString("MathUtils.OutOfLongInteger"), //$NON-NLS-1$
 					value));
 		if (value <= 1)
 			return 1;
@@ -720,7 +686,7 @@ public class MathUtils
 	 *            the specified value
 	 * @return true if is prime, otherwise, false
 	 */
-	static final public boolean isPrime(int value)
+	public static final boolean isPrime(int value)
 	{
 		return PrimeSet.getInstance().isPrime(value);
 	}
@@ -737,7 +703,7 @@ public class MathUtils
 	 *            The right corner point of the angle.
 	 * @return The angle in degree.
 	 */
-	static final public boolean isUpon(Point2D head, Point2D end, Point2D p)
+	public static final boolean isUpon(Point2D head, Point2D end, Point2D p)
 	{
 		return p.getY() >= new StraightLine(head, end).y(p.getX());
 	}
@@ -960,10 +926,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public byte maximum(byte[] a)
+	public static final byte maximum(byte[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.10")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		byte max = a[0];
 		for (byte i : a)
 			if (i > max)
@@ -978,10 +945,11 @@ public class MathUtils
 	 *            The number collection.
 	 * @return The maximum value.
 	 */
-	static final public double maximum(Collection<? extends Number> c)
+	public static final double maximum(Collection<? extends Number> c)
 	{
 		if (c.isEmpty())
-			throw new NullPointerException(Messages.getString("MathUtils.11")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		Iterator<? extends Number> it = c.iterator();
 		Number value = it.next();
 		Number temp = null;
@@ -1025,10 +993,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public double maximum(double[] a)
+	public static final double maximum(double[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.12")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		double max = a[0];
 		for (double i : a)
 			if (i > max)
@@ -1043,10 +1012,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public float maximum(float[] a)
+	public static final float maximum(float[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.13")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		float max = a[0];
 		for (float i : a)
 			if (i > max)
@@ -1061,10 +1031,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public int maximum(int[] a)
+	public static final int maximum(int[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.14")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int max = a[0];
 		for (int i : a)
 			if (i > max)
@@ -1103,10 +1074,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public long maximum(long[] a)
+	public static final long maximum(long[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.15")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		long max = a[0];
 		for (long i : a)
 			if (i > max)
@@ -1121,10 +1093,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public short maximum(short[] a)
+	public static final short maximum(short[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.16")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		short max = a[0];
 		for (short i : a)
 			if (i > max)
@@ -1139,10 +1112,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public int maximumIndex(byte[] a)
+	public static final int maximumIndex(byte[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.17")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int maxIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] > a[maxIdx])
@@ -1157,10 +1131,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public int maximumIndex(double[] a)
+	public static final int maximumIndex(double[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.18")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int maxIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] > a[maxIdx])
@@ -1175,10 +1150,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public int maximumIndex(float[] a)
+	public static final int maximumIndex(float[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.19")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int maxIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] > a[maxIdx])
@@ -1193,7 +1169,7 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public int maximumIndex(int[] a)
+	public static final int maximumIndex(int[] a)
 	{
 		if (a.length < 1)
 			throw new NullPointerException(Messages.getString("MathUtils.20")); //$NON-NLS-1$
@@ -1211,7 +1187,7 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public int maximumIndex(long[] a)
+	public static final int maximumIndex(long[] a)
 	{
 		if (a.length < 1)
 			throw new NullPointerException(Messages.getString("MathUtils.21")); //$NON-NLS-1$
@@ -1229,7 +1205,7 @@ public class MathUtils
 	 *            The number array.
 	 * @return The maximum value.
 	 */
-	static final public int maximumIndex(short[] a)
+	public static final int maximumIndex(short[] a)
 	{
 		if (a.length < 1)
 			throw new NullPointerException(Messages.getString("MathUtils.22")); //$NON-NLS-1$
@@ -1247,7 +1223,7 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public byte minimum(byte[] a)
+	public static final byte minimum(byte[] a)
 	{
 		if (a.length < 1)
 			throw new NullPointerException(Messages.getString("MathUtils.23")); //$NON-NLS-1$
@@ -1265,10 +1241,11 @@ public class MathUtils
 	 *            The number collection.
 	 * @return The minimum value.
 	 */
-	static final public double minimum(Collection<? extends Number> c)
+	public static final double minimum(Collection<? extends Number> c)
 	{
 		if (c.isEmpty())
-			throw new NullPointerException(Messages.getString("MathUtils.24")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		Iterator<? extends Number> it = c.iterator();
 		Number value = it.next();
 		Number temp = null;
@@ -1312,7 +1289,7 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public double minimum(double[] a)
+	public static final double minimum(double[] a)
 	{
 		if (a.length < 1)
 			throw new NullPointerException(Messages.getString("MathUtils.25")); //$NON-NLS-1$
@@ -1330,7 +1307,7 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public float minimum(float[] a)
+	public static final float minimum(float[] a)
 	{
 		if (a.length < 1)
 			throw new NullPointerException(Messages.getString("MathUtils.26")); //$NON-NLS-1$
@@ -1348,7 +1325,7 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public int minimum(int[] a)
+	public static final int minimum(int[] a)
 	{
 		if (a.length < 1)
 			throw new NullPointerException(Messages.getString("MathUtils.27")); //$NON-NLS-1$
@@ -1390,7 +1367,7 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public long minimum(long[] a)
+	public static final long minimum(long[] a)
 	{
 		if (a.length < 1)
 			throw new NullPointerException(Messages.getString("MathUtils.28")); //$NON-NLS-1$
@@ -1408,7 +1385,7 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public short minimum(short[] a)
+	public static final short minimum(short[] a)
 	{
 		if (a.length < 1)
 			throw new NullPointerException(Messages.getString("MathUtils.29")); //$NON-NLS-1$
@@ -1426,10 +1403,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public int minimumIndex(byte[] a)
+	public static final int minimumIndex(byte[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.30")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1444,10 +1422,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public int minimumIndex(double[] a)
+	public static final int minimumIndex(double[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.31")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1462,10 +1441,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public int minimumIndex(float[] a)
+	public static final int minimumIndex(float[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.32")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1480,10 +1460,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public int minimumIndex(int[] a)
+	public static final int minimumIndex(int[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.33")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1498,10 +1479,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public int minimumIndex(long[] a)
+	public static final int minimumIndex(long[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.34")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1516,10 +1498,11 @@ public class MathUtils
 	 *            The number array.
 	 * @return The minimum value.
 	 */
-	static final public int minimumIndex(short[] a)
+	public static final int minimumIndex(short[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(Messages.getString("MathUtils.35")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1745,15 +1728,164 @@ public class MathUtils
 	 * 
 	 * @return Pearson Correlation Coefficient
 	 */
-	static final public double pearson(double[] x, double[] y)
+	public static final double pearson(int[] x, int[] y)
 	{
 		if (x.length != y.length)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.36")); //$NON-NLS-1$
-		double[] xt = x.clone();
-		double[] yt = y.clone();
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		double[] xt = new double[x.length];
+		double[] yt = new double[y.length];
+		for (int i = 0; i < xt.length; i++)
+		{
+			xt[i] = x[i];
+			yt[i] = y[i];
+		}
 		double xa = MathUtils.average(x);
 		double ya = MathUtils.average(y);
+		for (int i = 0; i < xt.length; i++)
+		{
+			xt[i] -= xa;
+			yt[i] -= ya;
+		}
+		double p = 0.0;
+		for (int i = 0; i < xt.length; i++)
+			p += xt[i] * yt[i];
+		double a = 0.0, b = 0.0;
+		for (int i = 0; i < xt.length; i++)
+		{
+			a += xt[i] * xt[i];
+			b += yt[i] * yt[i];
+		}
+		return p / Math.sqrt(a) / Math.sqrt(b);
+	}
+
+	/**
+	 * Calculate the Pearson Correlation Coefficient.
+	 * 
+	 * @return Pearson Correlation Coefficient
+	 */
+	public static final double pearson(long[] x, long[] y)
+	{
+		if (x.length != y.length)
+			throw new IllegalArgumentException(
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		double[] xt = new double[x.length];
+		double[] yt = new double[y.length];
+		for (int i = 0; i < xt.length; i++)
+		{
+			xt[i] = x[i];
+			yt[i] = y[i];
+		}
+		double xa = MathUtils.average(x);
+		double ya = MathUtils.average(y);
+		for (int i = 0; i < xt.length; i++)
+		{
+			xt[i] -= xa;
+			yt[i] -= ya;
+		}
+		double p = 0.0;
+		for (int i = 0; i < xt.length; i++)
+			p += xt[i] * yt[i];
+		double a = 0.0, b = 0.0;
+		for (int i = 0; i < xt.length; i++)
+		{
+			a += xt[i] * xt[i];
+			b += yt[i] * yt[i];
+		}
+		return p / Math.sqrt(a) / Math.sqrt(b);
+	}
+
+	/**
+	 * Calculate the Pearson Correlation Coefficient.
+	 * 
+	 * @return Pearson Correlation Coefficient
+	 */
+	public static final double pearson(float[] x, float[] y)
+	{
+		if (x.length != y.length)
+			throw new IllegalArgumentException(
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		double[] xt = new double[x.length];
+		double[] yt = new double[y.length];
+		for (int i = 0; i < xt.length; i++)
+		{
+			xt[i] = x[i];
+			yt[i] = y[i];
+		}
+		double xa = MathUtils.average(x);
+		double ya = MathUtils.average(y);
+		for (int i = 0; i < xt.length; i++)
+		{
+			xt[i] -= xa;
+			yt[i] -= ya;
+		}
+		double p = 0.0;
+		for (int i = 0; i < xt.length; i++)
+			p += xt[i] * yt[i];
+		double a = 0.0, b = 0.0;
+		for (int i = 0; i < xt.length; i++)
+		{
+			a += xt[i] * xt[i];
+			b += yt[i] * yt[i];
+		}
+		return p / Math.sqrt(a) / Math.sqrt(b);
+	}
+
+	/**
+	 * Calculate the Pearson Correlation Coefficient.
+	 * 
+	 * @return Pearson Correlation Coefficient
+	 */
+	public static final double pearson(double[] x, double[] y)
+	{
+		if (x.length != y.length)
+			throw new IllegalArgumentException(
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		double[] xt = new double[x.length];
+		double[] yt = new double[y.length];
+		for (int i = 0; i < xt.length; i++)
+		{
+			xt[i] = x[i];
+			yt[i] = y[i];
+		}
+		double xa = MathUtils.average(x);
+		double ya = MathUtils.average(y);
+		for (int i = 0; i < xt.length; i++)
+		{
+			xt[i] -= xa;
+			yt[i] -= ya;
+		}
+		double p = 0.0;
+		for (int i = 0; i < xt.length; i++)
+			p += xt[i] * yt[i];
+		double a = 0.0, b = 0.0;
+		for (int i = 0; i < xt.length; i++)
+		{
+			a += xt[i] * xt[i];
+			b += yt[i] * yt[i];
+		}
+		return p / Math.sqrt(a) / Math.sqrt(b);
+	}
+
+	/**
+	 * Calculate the Pearson Correlation Coefficient.
+	 * 
+	 * @return Pearson Correlation Coefficient
+	 */
+	public static final <T extends Number> double pearson(T[] x, T[] y)
+	{
+		if (x.length != y.length)
+			throw new IllegalArgumentException(
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		double[] xt = new double[x.length];
+		double[] yt = new double[y.length];
+		for (int i = 0; i < xt.length; i++)
+		{
+			xt[i] = x[i].doubleValue();
+			yt[i] = y[i].doubleValue();
+		}
+		double xa = MathUtils.average(xt);
+		double ya = MathUtils.average(yt);
 		for (int i = 0; i < xt.length; i++)
 		{
 			xt[i] -= xa;
@@ -1779,11 +1911,11 @@ public class MathUtils
 	 * @param value
 	 * @return the amount of permutations
 	 */
-	static final public long permute(int base, int value)
+	public static final long permute(int base, int value)
 	{
 		if (value > base || base < 0 || value < 0)
 			throw new IllegalArgumentException(String.format(
-					Messages.getString("MathUtils.37"), base, //$NON-NLS-1$
+					Messages.getString("MathUtils.IllegalBaseAndValue"), base, //$NON-NLS-1$
 					value));
 		int n = base - value;
 		int t = 1;
@@ -1823,11 +1955,11 @@ public class MathUtils
 	 *            The actual value vector.
 	 * @return The least square error.
 	 */
-	static final public double relativeError(byte[] evaluated, byte[] actual)
+	public static final double relativeError(byte[] evaluated, byte[] actual)
 	{
 		if (evaluated.length != actual.length)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.38")); //$NON-NLS-1$
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -1844,11 +1976,11 @@ public class MathUtils
 	 *            The actual value vector.
 	 * @return The least square error.
 	 */
-	static final public double relativeError(double[] evaluated, double[] actual)
+	public static final double relativeError(double[] evaluated, double[] actual)
 	{
 		if (evaluated.length != actual.length)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.39")); //$NON-NLS-1$
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -1865,11 +1997,11 @@ public class MathUtils
 	 *            The actual value vector.
 	 * @return The least square error.
 	 */
-	static final public double relativeError(float[] evaluated, float[] actual)
+	public static final double relativeError(float[] evaluated, float[] actual)
 	{
 		if (evaluated.length != actual.length)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.40")); //$NON-NLS-1$
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -1886,11 +2018,11 @@ public class MathUtils
 	 *            The actual value vector.
 	 * @return The least square error.
 	 */
-	static final public double relativeError(int[] evaluated, int[] actual)
+	public static final double relativeError(int[] evaluated, int[] actual)
 	{
 		if (evaluated.length != actual.length)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.41")); //$NON-NLS-1$
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -1907,11 +2039,11 @@ public class MathUtils
 	 *            The actual value vector.
 	 * @return The least square error.
 	 */
-	static final public double relativeError(long[] evaluated, long[] actual)
+	public static final double relativeError(long[] evaluated, long[] actual)
 	{
 		if (evaluated.length != actual.length)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.42")); //$NON-NLS-1$
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -1927,7 +2059,7 @@ public class MathUtils
 	 *            The actual value.
 	 * @return The relative error.
 	 */
-	static final public double relativeError(Number evaluated, Number actual)
+	public static final double relativeError(Number evaluated, Number actual)
 	{
 		double e = evaluated.doubleValue();
 		double a = actual.doubleValue();
@@ -1944,11 +2076,11 @@ public class MathUtils
 	 *            The actual value vector.
 	 * @return The least square error.
 	 */
-	static final public double relativeError(short[] evaluated, short[] actual)
+	public static final double relativeError(short[] evaluated, short[] actual)
 	{
 		if (evaluated.length != actual.length)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.43")); //$NON-NLS-1$
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -1979,7 +2111,7 @@ public class MathUtils
 	{
 		if (data.length < 5)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.44")); //$NON-NLS-1$
+					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2034,7 +2166,7 @@ public class MathUtils
 	{
 		if (data.length < 5)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.45")); //$NON-NLS-1$
+					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2089,7 +2221,7 @@ public class MathUtils
 	{
 		if (data.length < 5)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.46")); //$NON-NLS-1$
+					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2144,7 +2276,7 @@ public class MathUtils
 	{
 		if (data.length < 5)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.47")); //$NON-NLS-1$
+					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2199,7 +2331,7 @@ public class MathUtils
 	{
 		if (data.length < 5)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.48")); //$NON-NLS-1$
+					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2254,7 +2386,7 @@ public class MathUtils
 	{
 		if (data.length < 5)
 			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.49")); //$NON-NLS-1$
+					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2811,7 +2943,7 @@ public class MathUtils
 	 *            The number collection.
 	 * @return The standard deviation.
 	 */
-	static final public double standardDeviation(Collection<? extends Number> c)
+	public static final double standardDeviation(Collection<? extends Number> c)
 	{
 		return Math.sqrt(MathUtils.variance(c));
 	}
@@ -2823,7 +2955,7 @@ public class MathUtils
 	 *            The <tt>double</tt> number collection.
 	 * @return The standard deviation.
 	 */
-	static final public double standardDeviation(double[] c)
+	public static final double standardDeviation(double[] c)
 	{
 		return Math.sqrt(MathUtils.variance(c));
 	}
@@ -2835,7 +2967,7 @@ public class MathUtils
 	 *            The <tt>Double</tt> number collection.
 	 * @return The standard deviation.
 	 */
-	static final public double standardDeviation(Double[] c)
+	public static final double standardDeviation(Double[] c)
 	{
 		return Math.sqrt(MathUtils.variance(c));
 	}
@@ -2847,7 +2979,7 @@ public class MathUtils
 	 *            The <tt>float</tt> number collection.
 	 * @return The standard deviation.
 	 */
-	static final public double standardDeviation(float[] c)
+	public static final double standardDeviation(float[] c)
 	{
 		return Math.sqrt(MathUtils.variance(c));
 	}
@@ -2859,7 +2991,7 @@ public class MathUtils
 	 *            The <tt>Float</tt> number collection.
 	 * @return The standard deviation.
 	 */
-	static final public double standardDeviation(Float[] c)
+	public static final double standardDeviation(Float[] c)
 	{
 		return Math.sqrt(MathUtils.variance(c));
 	}
@@ -2871,7 +3003,7 @@ public class MathUtils
 	 *            The <tt>int</tt> number collection.
 	 * @return The standard deviation.
 	 */
-	static final public double standardDeviation(int[] c)
+	public static final double standardDeviation(int[] c)
 	{
 		return Math.sqrt(MathUtils.variance(c));
 	}
@@ -2883,7 +3015,7 @@ public class MathUtils
 	 *            The <tt>Integer</tt> number collection.
 	 * @return The standard deviation.
 	 */
-	static final public double standardDeviation(Integer[] c)
+	public static final double standardDeviation(Integer[] c)
 	{
 		return Math.sqrt(MathUtils.variance(c));
 	}
@@ -2895,7 +3027,7 @@ public class MathUtils
 	 *            The <tt>long</tt> number collection.
 	 * @return The standard deviation.
 	 */
-	static final public double standardDeviation(long[] c)
+	public static final double standardDeviation(long[] c)
 	{
 		return Math.sqrt(MathUtils.variance(c));
 	}
@@ -2907,7 +3039,7 @@ public class MathUtils
 	 *            The <tt>Long</tt> number collection.
 	 * @return The standard deviation.
 	 */
-	static final public double standardDeviation(Long[] c)
+	public static final double standardDeviation(Long[] c)
 	{
 		return Math.sqrt(MathUtils.variance(c));
 	}
@@ -2919,7 +3051,7 @@ public class MathUtils
 	 *            the specified complex array
 	 * @return the summary
 	 */
-	static final public Complex summary(Complex[] x)
+	public static final Complex summary(Complex[] x)
 	{
 		double real = 0.0;
 		double imaginary = 0.0;
@@ -2938,26 +3070,26 @@ public class MathUtils
 	 *            the specified <tt>double</tt>array
 	 * @return the summary
 	 */
-	static final public double summary(double[] x)
+	public static final double summary(double[] x)
 	{
-		double sum = (double) 0.0;
+		double sum = 0.0;
 		for (double i : x)
 			sum += i;
 		return sum;
 	}
 
 	/**
-	 * Returns the summary of the specified <tt>Double</tt>array.
+	 * Returns the summary of <code>x</code>
 	 * 
 	 * @param x
-	 *            the specified <tt>Double</tt>array
+	 *            the specified array
 	 * @return the summary
 	 */
-	static final public double summary(Double[] x)
+	public static final <T extends Number> double summary(T[] x)
 	{
-		double sum = (double) 0.0;
-		for (double i : x)
-			sum += i;
+		double sum = 0.0;
+		for (T i : x)
+			sum += i.doubleValue();
 		return sum;
 	}
 
@@ -2968,24 +3100,9 @@ public class MathUtils
 	 *            the specified <tt>float</tt>array
 	 * @return the summary
 	 */
-	static final public double summary(float[] x)
+	public static final double summary(float[] x)
 	{
-		double sum = (double) 0.0;
-		for (double i : x)
-			sum += i;
-		return sum;
-	}
-
-	/**
-	 * Returns the summary of the specified <tt>Float</tt>array.
-	 * 
-	 * @param x
-	 *            the specified <tt>Float</tt>array
-	 * @return the summary
-	 */
-	static final public double summary(Float[] x)
-	{
-		double sum = (double) 0.0;
+		double sum = 0.0;
 		for (double i : x)
 			sum += i;
 		return sum;
@@ -2998,24 +3115,9 @@ public class MathUtils
 	 *            the specified <tt>int</tt>array
 	 * @return the summary
 	 */
-	static final public double summary(int[] x)
+	public static final double summary(int[] x)
 	{
-		double sum = (double) 0.0;
-		for (double i : x)
-			sum += i;
-		return sum;
-	}
-
-	/**
-	 * Returns the summary of the specified <tt>Integer</tt>array.
-	 * 
-	 * @param x
-	 *            the specified <tt>Integer</tt>array
-	 * @return the summary
-	 */
-	static final public double summary(Integer[] x)
-	{
-		double sum = (double) 0.0;
+		double sum = 0.0;
 		for (double i : x)
 			sum += i;
 		return sum;
@@ -3028,24 +3130,9 @@ public class MathUtils
 	 *            the specified <tt>long</tt>array
 	 * @return the summary
 	 */
-	static final public double summary(long[] x)
+	public static final double summary(long[] x)
 	{
-		double sum = (double) 0.0;
-		for (double i : x)
-			sum += i;
-		return sum;
-	}
-
-	/**
-	 * Returns the summary of the specified <tt>Long</tt>array.
-	 * 
-	 * @param x
-	 *            the specified <tt>Long</tt>array
-	 * @return the summary
-	 */
-	static final public double summary(Long[] x)
-	{
-		double sum = (double) 0.0;
+		double sum = 0.0;
 		for (double i : x)
 			sum += i;
 		return sum;
@@ -3073,7 +3160,7 @@ public class MathUtils
 	 * @param c
 	 * @return The area.
 	 */
-	static final public double triangleArea(double a, double b, double c)
+	public static final double triangleArea(double a, double b, double c)
 	{
 		double p = (a + b + c) / 2;
 		return Math.sqrt(p * (p - a) * (p - b) * (p - c));
@@ -3087,7 +3174,7 @@ public class MathUtils
 	 * @param c
 	 * @return The area.
 	 */
-	static final public double triangleArea(Point2D a, Point2D b, Point2D c)
+	public static final double triangleArea(Point2D a, Point2D b, Point2D c)
 	{
 		return MathUtils.triangle_area(a.getX(), a.getY(), b.getX(), b.getY(),
 				c.getX(), c.getY());
@@ -3100,10 +3187,11 @@ public class MathUtils
 	 *            The number collection.
 	 * @return The variance.
 	 */
-	static final public double variance(Collection<? extends Number> c)
+	public static final double variance(Collection<? extends Number> c)
 	{
 		if (c.isEmpty())
-			throw new NullPointerException(Messages.getString("MathUtils.50")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3118,10 +3206,11 @@ public class MathUtils
 	 *            The <tt>double</tt>number array.
 	 * @return The variance.
 	 */
-	static final public double variance(double[] c)
+	public static final double variance(double[] c)
 	{
 		if (c == null || c.length == 0)
-			throw new NullPointerException(Messages.getString("MathUtils.51")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3130,16 +3219,16 @@ public class MathUtils
 	}
 
 	/**
-	 * Calculate the variance of the <tt>Double</tt> number collection.
+	 * Calculate the variance of <code>c</code>;
 	 * 
 	 * @param c
-	 *            The <tt>Double</tt>number array.
-	 * @return The variance.
+	 * @return the variance
 	 */
-	static final public double variance(Double[] c)
+	public static final <T extends Number> double variance(T[] c)
 	{
 		if (c == null || c.length == 0)
-			throw new NullPointerException(Messages.getString("MathUtils.52")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3154,28 +3243,11 @@ public class MathUtils
 	 *            The <tt>float</tt>number array.
 	 * @return The variance.
 	 */
-	static final public double variance(float[] c)
+	public static final double variance(float[] c)
 	{
 		if (c == null || c.length == 0)
-			throw new NullPointerException(Messages.getString("MathUtils.53")); //$NON-NLS-1$
-		double average = MathUtils.average(c);
-		double summary = 0.0;
-		for (Number n : c)
-			summary += Math.pow(n.doubleValue() - average, 2.0);
-		return summary / c.length;
-	}
-
-	/**
-	 * Calculate the variance of the <tt>Float</tt> number collection.
-	 * 
-	 * @param c
-	 *            The <tt>Float</tt>number array.
-	 * @return The variance.
-	 */
-	static final public double variance(Float[] c)
-	{
-		if (c == null || c.length == 0)
-			throw new NullPointerException(Messages.getString("MathUtils.54")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3190,28 +3262,11 @@ public class MathUtils
 	 *            The <tt>int</tt>number array.
 	 * @return The variance.
 	 */
-	static final public double variance(int[] c)
+	public static final double variance(int[] c)
 	{
 		if (c == null || c.length == 0)
-			throw new NullPointerException(Messages.getString("MathUtils.55")); //$NON-NLS-1$
-		double average = MathUtils.average(c);
-		double summary = 0.0;
-		for (Number n : c)
-			summary += Math.pow(n.doubleValue() - average, 2.0);
-		return summary / c.length;
-	}
-
-	/**
-	 * Calculate the variance of the <tt>Integer</tt> number collection.
-	 * 
-	 * @param c
-	 *            The <tt>Integer</tt>number array.
-	 * @return The variance.
-	 */
-	static final public double variance(Integer[] c)
-	{
-		if (c == null || c.length == 0)
-			throw new NullPointerException(Messages.getString("MathUtils.56")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3226,28 +3281,11 @@ public class MathUtils
 	 *            The <tt>long</tt>number array.
 	 * @return The variance.
 	 */
-	static final public double variance(long[] c)
+	public static final double variance(long[] c)
 	{
 		if (c == null || c.length == 0)
-			throw new NullPointerException(Messages.getString("MathUtils.57")); //$NON-NLS-1$
-		double average = MathUtils.average(c);
-		double summary = 0.0;
-		for (Number n : c)
-			summary += Math.pow(n.doubleValue() - average, 2.0);
-		return summary / c.length;
-	}
-
-	/**
-	 * Calculate the variance of the <tt>Long</tt> number collection.
-	 * 
-	 * @param c
-	 *            The <tt>Long</tt>number array.
-	 * @return The variance.
-	 */
-	static final public double variance(Long[] c)
-	{
-		if (c == null || c.length == 0)
-			throw new NullPointerException(Messages.getString("MathUtils.58")); //$NON-NLS-1$
+			throw new NullPointerException(
+					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3268,12 +3306,12 @@ public class MathUtils
 	 * </p>
 	 * 
 	 * @param data
-	 *            the specified <tt>int</tt> array
+	 *            the specified <tt>int</tt> matrix
 	 * @param x
 	 *            the decimal index
 	 * @return the interpolation value
 	 */
-	public static double interpolate(int[] data, double x)
+	public static final double interpolate(int[] data, double x)
 	{
 		if (data.length == 0)
 			return 0;
@@ -3303,7 +3341,7 @@ public class MathUtils
 	 *            the decimal index
 	 * @return the interpolation value
 	 */
-	public static double interpolate(long[] data, double x)
+	public static final double interpolate(long[] data, double x)
 	{
 		if (data.length == 0)
 			return 0;
@@ -3333,7 +3371,7 @@ public class MathUtils
 	 *            the decimal index
 	 * @return the interpolation value
 	 */
-	public static double interpolate(float[] data, double x)
+	public static final double interpolate(float[] data, double x)
 	{
 		if (data.length == 0)
 			return 0;
@@ -3363,7 +3401,7 @@ public class MathUtils
 	 *            the decimal index
 	 * @return the interpolation value
 	 */
-	public static double interpolate(double[] data, double x)
+	public static final double interpolate(double[] data, double x)
 	{
 		if (data.length == 0)
 			return 0;
@@ -3393,7 +3431,7 @@ public class MathUtils
 	 *            the decimal index
 	 * @return the interpolation value
 	 */
-	public static double interpolate(Integer[] data, double x)
+	public static final double interpolate(Integer[] data, double x)
 	{
 		if (data.length == 0)
 			return 0;
@@ -3423,7 +3461,7 @@ public class MathUtils
 	 *            the decimal index
 	 * @return the interpolation value
 	 */
-	public static double interpolate(Long[] data, double x)
+	public static final double interpolate(Long[] data, double x)
 	{
 		if (data.length == 0)
 			return 0;
@@ -3453,7 +3491,7 @@ public class MathUtils
 	 *            the decimal index
 	 * @return the interpolation value
 	 */
-	public static double interpolate(Float[] data, double x)
+	public static final double interpolate(Float[] data, double x)
 	{
 		if (data.length == 0)
 			return 0;
@@ -3484,7 +3522,7 @@ public class MathUtils
 	 *            the decimal index
 	 * @return the interpolation value
 	 */
-	public static double interpolate(Double[] data, double x)
+	public static final double interpolate(Double[] data, double x)
 	{
 		if (data.length == 0)
 			return 0;
@@ -3510,19 +3548,19 @@ public class MathUtils
 	 * </p>
 	 * 
 	 * @param data
-	 *            the specified int array
+	 *            the specified <tt>int</tt> matrix
 	 * @param x
 	 *            the decimal x coordinate
 	 * @param y
 	 *            the decimal y coordinate
 	 * @return the interpolation value
 	 */
-	public static double interpolate(int[][] data, double x, double y)
+	public static final double interpolate(int[][] data, double x, double y)
 	{
 		if (data.length == 0)
 			return 0;
 		if (x > data.length - 1 || y > data[0].length - 1)
-			return data[data.length][data[data.length].length];
+			return data[data.length - 1][data[data.length - 1].length - 1];
 		if (x < 0 || y < 0)
 			return data[0][0];
 		int dx = (int) x;
@@ -3549,19 +3587,19 @@ public class MathUtils
 	 * </p>
 	 * 
 	 * @param data
-	 *            the specified int array
+	 *            the specified <tt>long</tt> matrix
 	 * @param x
 	 *            the decimal x coordinate
 	 * @param y
 	 *            the decimal y coordinate
 	 * @return the interpolation value
 	 */
-	public static double interpolate(long[][] data, double x, double y)
+	public static final double interpolate(long[][] data, double x, double y)
 	{
 		if (data.length == 0)
 			return 0;
 		if (x > data.length - 1 || y > data[0].length - 1)
-			return data[data.length][data[data.length].length];
+			return data[data.length - 1][data[data.length - 1].length - 1];
 		if (x < 0 || y < 0)
 			return data[0][0];
 		int dx = (int) x;
@@ -3577,27 +3615,30 @@ public class MathUtils
 	/**
 	 * Returns the value of specified decimal position(x,y).
 	 * <p>
-	 * Calculating algorithm is implemented by 2D first-order interpolation.<br>
-	 * f(x,y) = f(x',y') + (f(x'+1,y') - f(x',y')) * (x - x') + (f(x',y'+1) -
-	 * f(x',y')) * (y - y')<br>
+	 * Calculating algorithm is implemented by 2D first-order interpolation.
+	 * 
+	 * <pre>
+	 * f(x,y) = f(x',y') + (f(x'+1,y') - f(x',y')) * (x - x') + (f(x',y'+1) - f(x',y')) * (y - y')
 	 * + (f(x'+1,y'+1)+f(x',y' )-f(x'+1,y' )-f(x',y'+1)) * (x - x') * (y - y')
-	 * x' = rounded_down(x),
+	 * x' = rounded_down(x)
+	 * </pre>
+	 * 
 	 * </p>
 	 * 
 	 * @param data
-	 *            the specified int array
+	 *            the specified <tt>float</tt> matrix
 	 * @param x
 	 *            the decimal x coordinate
 	 * @param y
 	 *            the decimal y coordinate
 	 * @return the interpolation value
 	 */
-	public static double interpolate(float[][] data, double x, double y)
+	public static final double interpolate(float[][] data, double x, double y)
 	{
 		if (data.length == 0)
 			return 0;
 		if (x > data.length - 1 || y > data[0].length - 1)
-			return data[data.length][data[data.length].length];
+			return data[data.length - 1][data[data.length - 1].length - 1];
 		if (x < 0 || y < 0)
 			return data[0][0];
 		int dx = (int) x;
@@ -3613,35 +3654,51 @@ public class MathUtils
 	/**
 	 * Returns the value of specified decimal position(x,y).
 	 * <p>
-	 * Calculating algorithm is implemented by 2D first-order interpolation.<br>
-	 * f(x,y) = f(x',y') + (f(x'+1,y') - f(x',y')) * (x - x') + (f(x',y'+1) -
-	 * f(x',y')) * (y - y')<br>
+	 * Calculating algorithm is implemented by 2D first-order interpolation.
+	 * 
+	 * <pre>
+	 * f(x,y) = f(x',y') + (f(x'+1,y') - f(x',y')) * (x - x') + (f(x',y'+1) - f(x',y')) * (y - y')
 	 * + (f(x'+1,y'+1)+f(x',y' )-f(x'+1,y' )-f(x',y'+1)) * (x - x') * (y - y')
-	 * x' = rounded_down(x),
+	 * x' = rounded_down(x)
+	 * </pre>
+	 * 
 	 * </p>
 	 * 
 	 * @param data
-	 *            the specified int array
+	 *            the specified <tt>double</tt> matrix
 	 * @param x
 	 *            the decimal x coordinate
 	 * @param y
 	 *            the decimal y coordinate
 	 * @return the interpolation value
 	 */
-	public static double interpolate(double[][] data, double x, double y)
+	public static final double interpolate(double[][] data, double x, double y)
 	{
 		if (data.length == 0)
 			return 0;
-		if (x > data.length - 1 || y > data[0].length - 1)
-			return data[data.length][data[data.length].length];
 		if (x < 0 || y < 0)
 			return data[0][0];
 		int dx = (int) x;
 		int dy = (int) y;
-		double p00 = data[dx][dy];
-		double p01 = data[dx][dy + 1];
-		double p10 = data[dx + 1][dy];
-		double p11 = data[dx + 1][dy + 1];
+		int maxY = data.length - 1;
+		int maxX = data[maxY].length - 1;
+		if (dy + 1 > maxY)
+		{
+			if (dx + 1 > maxX)
+				return data[maxY][maxX];
+			else
+				// calculate when only y is at the end
+				return (x - dx) * data[maxY][dx] + (dx + 1 - x)
+						* data[maxY][dx + 1];
+		}
+		else if (dx + 1 > maxX)
+			// calculate when only x is at the end
+			return (y - dy) * data[dy][maxX] + (dy + 1 - y)
+					* data[dy + 1][maxX];
+		double p00 = data[dy][dx];
+		double p01 = data[dy + 1][dx];
+		double p10 = data[dy][dx + 1];
+		double p11 = data[dy + 1][dx + 1];
 		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy)
 				- (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
 	}
@@ -3649,143 +3706,40 @@ public class MathUtils
 	/**
 	 * Returns the value of specified decimal position(x,y).
 	 * <p>
-	 * Calculating algorithm is implemented by 2D first-order interpolation.<br>
-	 * f(x,y) = f(x',y') + (f(x'+1,y') - f(x',y')) * (x - x') + (f(x',y'+1) -
-	 * f(x',y')) * (y - y')<br>
+	 * Calculating algorithm is implemented by 2D first-order interpolation.
+	 * 
+	 * <pre>
+	 * f(x,y) = f(x',y') + (f(x'+1,y') - f(x',y')) * (x - x') + (f(x',y'+1) - f(x',y')) * (y - y')
 	 * + (f(x'+1,y'+1)+f(x',y' )-f(x'+1,y' )-f(x',y'+1)) * (x - x') * (y - y')
-	 * x' = rounded_down(x),
+	 * x' = rounded_down(x)
+	 * </pre>
+	 * 
 	 * </p>
 	 * 
 	 * @param data
-	 *            the specified int array
+	 *            the specified <tt>double</tt> matrix
 	 * @param x
 	 *            the decimal x coordinate
 	 * @param y
 	 *            the decimal y coordinate
 	 * @return the interpolation value
 	 */
-	public static double interpolate(Integer[][] data, double x, double y)
+	public static final <T extends Number> double interpolate(T[][] data,
+			double x, double y)
 	{
 		if (data.length == 0)
 			return 0;
 		if (x > data.length - 1 || y > data[0].length - 1)
-			return data[data.length][data[data.length].length];
+			return data[data.length - 1][data[data.length - 1].length - 1]
+					.doubleValue();
 		if (x < 0 || y < 0)
-			return data[0][0];
+			return data[0][0].doubleValue();
 		int dx = (int) x;
 		int dy = (int) y;
-		Integer p00 = data[dx][dy];
-		Integer p01 = data[dx][dy + 1];
-		Integer p10 = data[dx + 1][dy];
-		Integer p11 = data[dx + 1][dy + 1];
-		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy)
-				- (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
-	}
-
-	/**
-	 * Returns the value of specified decimal position(x,y).
-	 * <p>
-	 * Calculating algorithm is implemented by 2D first-order interpolation.<br>
-	 * f(x,y) = f(x',y') + (f(x'+1,y') - f(x',y')) * (x - x') + (f(x',y'+1) -
-	 * f(x',y')) * (y - y')<br>
-	 * + (f(x'+1,y'+1)+f(x',y' )-f(x'+1,y' )-f(x',y'+1)) * (x - x') * (y - y')
-	 * x' = rounded_down(x),
-	 * </p>
-	 * 
-	 * @param data
-	 *            the specified int array
-	 * @param x
-	 *            the decimal x coordinate
-	 * @param y
-	 *            the decimal y coordinate
-	 * @return the interpolation value
-	 */
-	public static double interpolate(Long[][] data, double x, double y)
-	{
-		if (data.length == 0)
-			return 0;
-		if (x > data.length - 1 || y > data[0].length - 1)
-			return data[data.length][data[data.length].length];
-		if (x < 0 || y < 0)
-			return data[0][0];
-		int dx = (int) x;
-		int dy = (int) y;
-		Long p00 = data[dx][dy];
-		Long p01 = data[dx][dy + 1];
-		Long p10 = data[dx + 1][dy];
-		Long p11 = data[dx + 1][dy + 1];
-		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy)
-				- (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
-	}
-
-	/**
-	 * Returns the value of specified decimal position(x,y).
-	 * <p>
-	 * Calculating algorithm is implemented by 2D first-order interpolation.<br>
-	 * f(x,y) = f(x',y') + (f(x'+1,y') - f(x',y')) * (x - x') + (f(x',y'+1) -
-	 * f(x',y')) * (y - y')<br>
-	 * + (f(x'+1,y'+1)+f(x',y' )-f(x'+1,y' )-f(x',y'+1)) * (x - x') * (y - y')
-	 * x' = rounded_down(x),
-	 * </p>
-	 * 
-	 * @param data
-	 *            the specified int array
-	 * @param x
-	 *            the decimal x coordinate
-	 * @param y
-	 *            the decimal y coordinate
-	 * @return the interpolation value
-	 */
-	public static double interpolate(Float[][] data, double x, double y)
-	{
-		if (data.length == 0)
-			return 0;
-		if (x > data.length - 1 || y > data[0].length - 1)
-			return data[data.length][data[data.length].length];
-		if (x < 0 || y < 0)
-			return data[0][0];
-		int dx = (int) x;
-		int dy = (int) y;
-		Float p00 = data[dx][dy];
-		Float p01 = data[dx][dy + 1];
-		Float p10 = data[dx + 1][dy];
-		Float p11 = data[dx + 1][dy + 1];
-		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy)
-				- (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
-	}
-
-	/**
-	 * Returns the value of specified decimal position(x,y).
-	 * <p>
-	 * Calculating algorithm is implemented by 2D first-order interpolation.<br>
-	 * f(x,y) = f(x',y') + (f(x'+1,y') - f(x',y')) * (x - x') + (f(x',y'+1) -
-	 * f(x',y')) * (y - y')<br>
-	 * + (f(x'+1,y'+1)+f(x',y' )-f(x'+1,y' )-f(x',y'+1)) * (x - x') * (y - y')
-	 * x' = rounded_down(x),
-	 * </p>
-	 * 
-	 * @param data
-	 *            the specified int array
-	 * @param x
-	 *            the decimal x coordinate
-	 * @param y
-	 *            the decimal y coordinate
-	 * @return the interpolation value
-	 */
-	public static double interpolate(Double[][] data, double x, double y)
-	{
-		if (data.length == 0)
-			return 0;
-		if (x > data.length - 1 || y > data[0].length - 1)
-			return data[data.length][data[data.length].length];
-		if (x < 0 || y < 0)
-			return data[0][0];
-		int dx = (int) x;
-		int dy = (int) y;
-		Double p00 = data[dx][dy];
-		Double p01 = data[dx][dy + 1];
-		Double p10 = data[dx + 1][dy];
-		Double p11 = data[dx + 1][dy + 1];
+		double p00 = data[dx][dy].doubleValue();
+		double p01 = data[dx][dy + 1].doubleValue();
+		double p10 = data[dx + 1][dy].doubleValue();
+		double p11 = data[dx + 1][dy + 1].doubleValue();
 		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy)
 				- (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
 	}
@@ -3883,5 +3837,206 @@ public class MathUtils
 			return (long) a;
 		else
 			return (long) Math.ceil(a);
+	}
+
+	/**
+	 * Returns the Euclidean distance between vector <code>a</code> and
+	 * <code>b</code>.
+	 * 
+	 * @param a
+	 * @param b
+	 * @return the Euclidean distance
+	 */
+	public static final double disEuclidean(int[] a, int[] b)
+	{
+		if (a.length != b.length)
+			throw new IllegalArgumentException(
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		double sum = 0, d;
+		for (int i = 0; i < a.length; i++)
+		{
+			d = a[i] - b[i];
+			sum += d * d;
+		}
+		return sum;
+	}
+
+	/**
+	 * Returns the Euclidean distance between vector <code>a</code> and
+	 * <code>b</code>.
+	 * 
+	 * @param a
+	 * @param b
+	 * @return the Euclidean distance
+	 */
+	public static final double disEuclidean(long[] a, long[] b)
+	{
+		if (a.length != b.length)
+			throw new IllegalArgumentException(
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		double sum = 0, d;
+		for (int i = 0; i < a.length; i++)
+		{
+			d = a[i] - b[i];
+			sum += d * d;
+		}
+		return sum;
+	}
+
+	/**
+	 * Returns the Euclidean distance between vector <code>a</code> and
+	 * <code>b</code>.
+	 * 
+	 * @param a
+	 * @param b
+	 * @return the Euclidean distance
+	 */
+	public static final double disEuclidean(float[] a, float[] b)
+	{
+		if (a.length != b.length)
+			throw new IllegalArgumentException(
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		double sum = 0, d;
+		for (int i = 0; i < a.length; i++)
+		{
+			d = a[i] - b[i];
+			sum += d * d;
+		}
+		return sum;
+	}
+
+	/**
+	 * Returns the Euclidean distance between vector <code>a</code> and
+	 * <code>b</code>.
+	 * 
+	 * @param a
+	 * @param b
+	 * @return the Euclidean distance
+	 */
+	public static final double disEuclidean(double[] a, double[] b)
+	{
+		if (a.length != b.length)
+			throw new IllegalArgumentException(
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		double sum = 0, d;
+		for (int i = 0; i < a.length; i++)
+		{
+			d = a[i] - b[i];
+			sum += d * d;
+		}
+		return sum;
+	}
+
+	/**
+	 * Returns the Euclidean distance between vector <code>a</code> and
+	 * <code>b</code>.
+	 * 
+	 * @param a
+	 * @param b
+	 * @return the Euclidean distance
+	 */
+	public static final <T extends Number> double disEuclidean(T[] a, T[] b)
+	{
+		if (a.length != b.length)
+			throw new IllegalArgumentException(
+					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		double sum = 0, d;
+		for (int i = 0; i < a.length; i++)
+		{
+			d = a[i].doubleValue() - b[i].doubleValue();
+			sum += d * d;
+		}
+		return sum;
+	}
+
+	/**
+	 * Returns the covariance matrix between <code>x</code> and <code>y</code>
+	 * 
+	 * @param x
+	 * @param y
+	 * @return the covariacne matrix
+	 */
+	public static final Matrix covariance(int[] x, int[] y)
+	{
+		Matrix cov = new Matrix(x.length, y.length, 0.0);
+		double xa = MathUtils.average(x);
+		double ya = MathUtils.average(y);
+		for (int j = 0; j < y.length; j++)
+			for (int i = 0; i < x.length; i++)
+				cov.set(i, j, (x[i] - xa) * (y[i] - ya));
+		return cov;
+	}
+
+	/**
+	 * Returns the covariance matrix between <code>x</code> and <code>y</code>
+	 * 
+	 * @param x
+	 * @param y
+	 * @return the covariacne matrix
+	 */
+	public static final Matrix covariance(long[] x, long[] y)
+	{
+		Matrix cov = new Matrix(x.length, y.length, 0.0);
+		double xa = MathUtils.average(x);
+		double ya = MathUtils.average(y);
+		for (int j = 0; j < y.length; j++)
+			for (int i = 0; i < x.length; i++)
+				cov.set(i, j, (x[i] - xa) * (y[i] - ya));
+		return cov;
+	}
+
+	/**
+	 * Returns the covariance matrix between <code>x</code> and <code>y</code>
+	 * 
+	 * @param x
+	 * @param y
+	 * @return the covariacne matrix
+	 */
+	public static final Matrix covariance(float[] x, float[] y)
+	{
+		Matrix cov = new Matrix(x.length, y.length, 0.0);
+		double xa = MathUtils.average(x);
+		double ya = MathUtils.average(y);
+		for (int j = 0; j < y.length; j++)
+			for (int i = 0; i < x.length; i++)
+				cov.set(i, j, (x[i] - xa) * (y[i] - ya));
+		return cov;
+	}
+
+	/**
+	 * Returns the covariance matrix between <code>x</code> and <code>y</code>
+	 * 
+	 * @param x
+	 * @param y
+	 * @return the covariacne matrix
+	 */
+	public static final Matrix covariance(double[] x, double[] y)
+	{
+		Matrix cov = new Matrix(x.length, y.length, 0.0);
+		double xa = MathUtils.average(x);
+		double ya = MathUtils.average(y);
+		for (int j = 0; j < y.length; j++)
+			for (int i = 0; i < x.length; i++)
+				cov.set(i, j, (x[i] - xa) * (y[i] - ya));
+		return cov;
+	}
+
+	/**
+	 * Returns the covariance matrix between <code>x</code> and <code>y</code>
+	 * 
+	 * @param x
+	 * @param y
+	 * @return the covariacne matrix
+	 */
+	public static final <T extends Number> Matrix covariance(T[] x, T[] y)
+	{
+		Matrix cov = new Matrix(x.length, y.length, 0.0);
+		double xa = MathUtils.average(x);
+		double ya = MathUtils.average(y);
+		for (int j = 0; j < y.length; j++)
+			for (int i = 0; i < x.length; i++)
+				cov.set(i, j, (x[i].doubleValue() - xa)
+						* (y[i].doubleValue() - ya));
+		return cov;
 	}
 }

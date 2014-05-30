@@ -10,10 +10,10 @@ import com.frank.math.Messages;
 /**
  * LU Decomposition.
  * <p>
- * For an m-by-n matrix A with m >= n, the LU decomposition is an m-by-n unit
- * lower triangular matrix L, an n-by-n upper triangular matrix U, and a
- * permutation vector pivot of length m so that A(pivot,:) = L*U. If m < n, then L
- * is m-by-m and U is m-by-n.
+ * Use m for the height, n for the width. For an m-by-n matrix A with m >= n,
+ * the LU decomposition is an m-by-n unit lower triangular matrix L, an n-by-n
+ * upper triangular matrix U, and a permutation vector pivot of length m so that
+ * A(pivot,:) = L*U. If m < n, then L is m-by-m and U is m-by-n.
  * </p>
  * <p>
  * The LU decomposition with pivoting always exists, even if the matrix is
@@ -22,6 +22,7 @@ import com.frank.math.Messages;
  * equations. This will fail if isNonsingular() returns false.
  * </p>
  * 
+ * @author Jama
  * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
  * @version 1.0.0
  */
@@ -122,7 +123,8 @@ public class LUDecomposition implements java.io.Serializable
 	public double determinant() throws IllegalArgumentException
 	{
 		if (height != width)
-			throw new IllegalArgumentException(Messages.getString("LUDecomposition.0")); //$NON-NLS-1$
+			throw new IllegalArgumentException(
+					Messages.getString("LUDecomposition.0")); //$NON-NLS-1$
 		double d = pivsign;
 		for (int j = 0; j < width; j++)
 			d *= LU[j][j];

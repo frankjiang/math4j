@@ -9,7 +9,6 @@ package com.frank.math.struct;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,21 +21,21 @@ import java.util.Set;
  * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
  * @version 1.0.0
  */
-public abstract class MultiMap<K, V> implements Map<K, List<V>>,
+public abstract class MultiMap<K, V> implements Map<K, Collection<V>>,
 		java.io.Serializable
 {
 	/**
 	 * serialVersionUID.
 	 */
-	private static final long		serialVersionUID	= 4718399716167029093L;
+	private static final long				serialVersionUID	= 4718399716167029093L;
 	/**
 	 * The inner map implementation.
 	 */
-	protected Map<K, List<V>>		map;
+	protected Map<K, Collection<V>>			map;
 	/**
 	 * The list type.
 	 */
-	protected Class<? extends List>	listType;
+	protected Class<? extends Collection>	collectionType;
 
 	/**
 	 * Construct an instance of <tt>AbstractMultiMap</tt>.
@@ -46,10 +45,11 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>,
 	 * @param listType
 	 *            the list type
 	 */
-	protected MultiMap(Map<K, List<V>> map, Class<? extends List> listType)
+	protected MultiMap(Map<K, Collection<V>> map,
+			Class<? extends Collection> listType)
 	{
 		this.map = map;
-		this.listType = listType;
+		this.collectionType = listType;
 	}
 
 	// normal part
@@ -84,7 +84,7 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>,
 	 * @see java.util.Map#remove(java.lang.Object)
 	 */
 	@Override
-	public List<V> remove(Object key)
+	public Collection<V> remove(Object key)
 	{
 		return map.remove(key);
 	}
@@ -111,7 +111,7 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>,
 	 * @see java.util.Map#values()
 	 */
 	@Override
-	public Collection<List<V>> values()
+	public Collection<Collection<V>> values()
 	{
 		return map.values();
 	}
@@ -120,7 +120,7 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>,
 	 * @see java.util.Map#entrySet()
 	 */
 	@Override
-	public Set<java.util.Map.Entry<K, List<V>>> entrySet()
+	public Set<java.util.Map.Entry<K, Collection<V>>> entrySet()
 	{
 		return map.entrySet();
 	}
@@ -132,7 +132,7 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>,
 	@Override
 	public boolean containsValue(Object value)
 	{
-		for (List<V> c : map.values())
+		for (Collection<V> c : map.values())
 			for (V e : c)
 				if (e.equals(value))
 					return true;
@@ -143,7 +143,7 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>,
 	 * @see java.util.Map#get(java.lang.Object)
 	 */
 	@Override
-	public List<V> get(Object key)
+	public Collection<V> get(Object key)
 	{
 		return map.get(key);
 	}
@@ -159,14 +159,14 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>,
 	 *            the key whose associated value is to be returned
 	 * @return the values list to which the specified key is mapped
 	 */
-	public List<V> getNotNull(K key)
+	public Collection<V> getNotNull(K key)
 	{
-		List<V> list = map.get(key);
+		Collection<V> list = map.get(key);
 		if (list == null)
 		{
 			try
 			{
-				list = listType.newInstance();
+				list = collectionType.newInstance();
 			}
 			catch (InstantiationException e)
 			{
@@ -185,9 +185,9 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>,
 	 * @see java.util.Map#put(java.lang.Object, java.lang.Object)
 	 */
 	@Override
-	public List<V> put(K key, List<V> value)
+	public Collection<V> put(K key, Collection<V> value)
 	{
-		List<V> list = getNotNull(key);
+		Collection<V> list = getNotNull(key);
 		list.addAll(value);
 		return list;
 	}
@@ -222,21 +222,56 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>,
 	 *             if some property of the specified key
 	 *             or value prevents it from being stored in this map
 	 */
-	public List<V> put(K key, V value)
+	public Collection<V> put(K key, V value)
 	{
-		List<V> list = getNotNull(key);
+		Collection<V> list = getNotNull(key);
 		list.add(value);
 		return list;
+	}
+
+	/**
+	 * Copies all of the mappings from the specified map to this map
+	 * (optional operation). The effect of this call is equivalent to that
+	 * of calling {@link #put(Object,Object) put(k, v)} on this map once
+	 * for each mapping from key <tt>k</tt> to value <tt>v</tt> in the
+	 * specified map. The behavior of this operation is undefined if the
+	 * specified map is modified while the operation is in progress.
+	 *
+	 * @param m
+	 *            mappings to be stored in this map
+	 * @throws UnsupportedOperationException
+	 *             if the <tt>putAll</tt> operation
+	 *             is not supported by this map
+	 * @throws ClassCastException
+	 *             if the class of a key or value in the
+	 *             specified map prevents it from being stored in this map
+	 * @throws NullPointerException
+	 *             if the specified map is null, or if
+	 *             this map does not permit null keys or values, and the
+	 *             specified map contains null keys or values
+	 * @throws IllegalArgumentException
+	 *             if some property of a key or value in
+	 *             the specified map prevents it from being stored in this map
+	 * @see java.util.Map#putAll(java.util.Map)
+	 */
+	public void putAllValue(Map<? extends K, ? extends V> m)
+	{
+		for (Entry<? extends K, ? extends V> e : m.entrySet())
+			put(e.getKey(), e.getValue());
 	}
 
 	/**
 	 * @see java.util.Map#putAll(java.util.Map)
 	 */
 	@Override
-	public void putAll(Map<? extends K, ? extends List<V>> m)
+	public void putAll(Map<? extends K, ? extends Collection<V>> m)
 	{
-		for (Entry<? extends K, ? extends List<V>> e : map.entrySet())
-			map.put(e.getKey(), e.getValue());
+		for (Entry<? extends K, ? extends Collection<V>> e : m.entrySet())
+		{
+			K key = e.getKey();
+			for (V value : e.getValue())
+				put(key, value);
+		}
 	}
 
 	/**
@@ -244,9 +279,9 @@ public abstract class MultiMap<K, V> implements Map<K, List<V>>,
 	 * 
 	 * @return the inner list type.
 	 */
-	public Class<? extends List> getListType()
+	public Class<? extends Collection> getCollectionType()
 	{
-		return listType;
+		return collectionType;
 	}
 
 	/**

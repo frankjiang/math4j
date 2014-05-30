@@ -369,7 +369,7 @@ public abstract class SparseVector<T extends Number> implements
 	{
 		if (index < 0)
 			throw new IllegalArgumentException(String.format(
-					Messages.getString("SparseVector.0"), index)); //$NON-NLS-1$
+					Messages.getString("SparseVector.NegativeIndex"), index)); //$NON-NLS-1$
 		if (value.doubleValue() != 0)
 			map.put(index, value);
 	}

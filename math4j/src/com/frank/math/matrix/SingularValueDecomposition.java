@@ -26,6 +26,7 @@ import com.frank.math.MathUtils;
  * computed from this decomposition.
  * </p>
  * 
+ * @author Jama
  * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
  * @version 1.0.0
  */
