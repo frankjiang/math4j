@@ -254,7 +254,7 @@ public abstract class MultiMap<K, V> implements Map<K, Collection<V>>,
 	 *             the specified map prevents it from being stored in this map
 	 * @see java.util.Map#putAll(java.util.Map)
 	 */
-	public void putAllValue(Map<? extends K, ? extends V> m)
+	public void putAllValues(Map<? extends K, ? extends V> m)
 	{
 		for (Entry<? extends K, ? extends V> e : m.entrySet())
 			put(e.getKey(), e.getValue());
