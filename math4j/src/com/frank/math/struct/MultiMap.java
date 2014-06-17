@@ -222,7 +222,7 @@ public abstract class MultiMap<K, V> implements Map<K, Collection<V>>,
 	 *             if some property of the specified key
 	 *             or value prevents it from being stored in this map
 	 */
-	public Collection<V> put(K key, V value)
+	public Collection<V> putOne(K key, V value)
 	{
 		Collection<V> list = getNotNull(key);
 		list.add(value);
@@ -257,7 +257,7 @@ public abstract class MultiMap<K, V> implements Map<K, Collection<V>>,
 	public void putAllValues(Map<? extends K, ? extends V> m)
 	{
 		for (Entry<? extends K, ? extends V> e : m.entrySet())
-			put(e.getKey(), e.getValue());
+			putOne(e.getKey(), e.getValue());
 	}
 
 	/**
@@ -270,7 +270,7 @@ public abstract class MultiMap<K, V> implements Map<K, Collection<V>>,
 		{
 			K key = e.getKey();
 			for (V value : e.getValue())
-				put(key, value);
+				putOne(key, value);
 		}
 	}
 
