@@ -10,10 +10,13 @@
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
-				<directory>src</directory>
+				<directory></directory>
 				<excludes>
 					<exclude>**/*.java</exclude>
 				</excludes>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
 			</resource>
 		</resources>
 		<plugins>
@@ -34,13 +37,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<distributionManagement>
-			<repository>
-				<id>internal.repo</id>
-				<name>Temporary Staging Repository</name>
-				<url>file://${project.build.directory}/mvn-repo</url>
-			</repository>
-		</distributionManagement>
 	</build>
 	<url>https://github.com/frankjiang/math4j.git</url>
 </project>
