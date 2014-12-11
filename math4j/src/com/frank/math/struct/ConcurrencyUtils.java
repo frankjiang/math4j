@@ -39,6 +39,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
 
+import com.frank.math.Messages;
+
 /**
  * Concurrency utilities.
  * 
@@ -173,7 +175,7 @@ public class ConcurrencyUtils
 	public static int nextPow2(int x)
 	{
 		if (x < 1)
-			throw new IllegalArgumentException("x must be greater or equal 1");
+			throw new IllegalArgumentException(Messages.getString("ConcurrencyUtils.XNotPossitive")); //$NON-NLS-1$
 		if ((x & x - 1) == 0)
 			return x; // x is already a power-of-two number 
 		x |= x >>> 1;
@@ -194,7 +196,7 @@ public class ConcurrencyUtils
 	public static int prevPow2(int x)
 	{
 		if (x < 1)
-			throw new IllegalArgumentException("x must be greater or equal 1");
+			throw new IllegalArgumentException(Messages.getString("ConcurrencyUtils.XNotPossitive")); //$NON-NLS-1$
 		return (int) Math.pow(2, Math.floor(Math.log(x) / Math.log(2)));
 	}
 

@@ -124,7 +124,7 @@ public class LUDecomposition implements java.io.Serializable
 	{
 		if (height != width)
 			throw new IllegalArgumentException(
-					Messages.getString("LUDecomposition.0")); //$NON-NLS-1$
+					Messages.getString("LUDecomposition.NotSquare")); //$NON-NLS-1$
 		double d = pivsign;
 		for (int j = 0; j < width; j++)
 			d *= LU[j][j];
@@ -224,9 +224,9 @@ public class LUDecomposition implements java.io.Serializable
 	{
 		if (B.height != height)
 			throw new IllegalArgumentException(
-					Messages.getString("LUDecomposition.1")); //$NON-NLS-1$
+					Messages.getString("LUDecomposition.RowNumNotAgree")); //$NON-NLS-1$
 		if (!isNonsingular())
-			throw new RuntimeException(Messages.getString("LUDecomposition.2")); //$NON-NLS-1$
+			throw new RuntimeException(Messages.getString("LUDecomposition.SingularMatrix")); //$NON-NLS-1$
 		// Copy right hand side with pivoting
 		int nx = B.width;
 		Matrix Xmat = B.subMatrix(pivot, 0, nx);

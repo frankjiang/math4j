@@ -8,6 +8,7 @@
 package com.frank.math.matrix;
 
 import com.frank.math.MathUtils;
+import com.frank.math.Messages;
 
 /**
  * QR Decomposition.
@@ -208,9 +209,9 @@ public class QRDecomposition implements java.io.Serializable
 	{
 		if (B.height != height)
 			throw new IllegalArgumentException(
-					"Matrix row dimensions must agree.");
+					Messages.getString("QRDecomposition.RowNotAgree")); //$NON-NLS-1$
 		if (!this.isFullRank())
-			throw new RuntimeException("Matrix is rank deficient.");
+			throw new RuntimeException(Messages.getString("QRDecomposition.RankDeficient")); //$NON-NLS-1$
 		// Copy right hand side
 		int nx = B.width;
 		double[][] X = B.copyMatrix();

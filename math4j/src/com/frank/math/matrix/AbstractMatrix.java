@@ -152,7 +152,7 @@ public class AbstractMatrix<T>
 		sb.append("{\r\n"); //$NON-NLS-1$
 		sb.append(super.toString());
 		sb.append(String.format(
-				Messages.getString("AbstractMatrix.0"), width, height)); //$NON-NLS-1$
+				Messages.getString("AbstractMatrix.Size"), width, height)); //$NON-NLS-1$
 		for (int y = 0; y < height; y++)
 			for (int x = 0; x < width; x++) {
 				if (x != 0)
@@ -250,7 +250,7 @@ public class AbstractMatrix<T>
 					data[i - rowStart][j - colStart] = this.data[i][j];
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new RuntimeException(String.format(
-					Messages.getString("AbstractMatrix.1"), //$NON-NLS-1$
+					Messages.getString("AbstractMatrix.Indices"), //$NON-NLS-1$
 					e.getLocalizedMessage()), e);
 		}
 		return matrix;

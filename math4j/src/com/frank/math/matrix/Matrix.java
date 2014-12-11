@@ -500,7 +500,7 @@ public class Matrix extends SerializableMatrix<Double>
 		}
 		catch (ArrayIndexOutOfBoundsException e)
 		{
-			throw new RuntimeException(Messages.getString("Matrix.4") //$NON-NLS-1$
+			throw new RuntimeException(Messages.getString("Matrix.SubMatIdx") //$NON-NLS-1$
 					+ e.getLocalizedMessage(), e);
 		}
 		return matrix;
@@ -551,7 +551,7 @@ public class Matrix extends SerializableMatrix<Double>
 		StringBuffer sb = new StringBuffer();
 		sb.append("{\r\n"); //$NON-NLS-1$
 		sb.append(getClass().getName() + "@" + Integer.toHexString(hashCode())); //$NON-NLS-1$
-		sb.append(String.format(Messages.getString("Matrix.6"), width, height)); //$NON-NLS-1$
+		sb.append(String.format(Messages.getString("Matrix.Size"), width, height)); //$NON-NLS-1$
 		for (int y = 0; y < height; y++)
 			for (int x = 0; x < width; x++)
 			{

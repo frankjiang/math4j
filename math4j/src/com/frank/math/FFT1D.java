@@ -34,7 +34,7 @@ public class FFT1D
 		// should probably pad x and y with 0s so that they have same length
 		// and are powers of 2
 		if (x.length != y.length)
-			throw new RuntimeException(Messages.getString("FFT1D.0")); //$NON-NLS-1$
+			throw new RuntimeException(Messages.getString("FFT1D.DimensionNotAgree")); //$NON-NLS-1$
 		int N = x.length;
 		// compute FFT of each sequence
 		Complex[] a = FFT1D.fft(x);
@@ -82,7 +82,7 @@ public class FFT1D
 	public static Complex[] fft(Complex[] x)
 	{
 		if (x == null || x.length == 0)
-			throw new IllegalArgumentException(Messages.getString("FFT1D.1")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("FFT1D.NullArray")); //$NON-NLS-1$
 		double[] data = new double[x.length * 2];
 		for (int i = 0; i < x.length; i++)
 		{

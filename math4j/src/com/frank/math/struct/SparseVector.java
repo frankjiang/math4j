@@ -29,10 +29,9 @@ import com.frank.math.Messages;
  * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
  * @param <T>
  *            the type of the number
- * @version 1.0.0
+ * @version 1.1.0
  */
-public abstract class SparseVector<T extends Number> implements
-		java.io.Serializable, java.util.Collection<T>
+public abstract class SparseVector<T extends Number> implements java.io.Serializable, java.util.Collection<T>
 {
 	/**
 	 * serialVersionUID.
@@ -45,8 +44,7 @@ public abstract class SparseVector<T extends Number> implements
 	 * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
 	 * @version 1.0.0
 	 */
-	public static final class AtomicInteger extends
-			SparseVector<java.util.concurrent.atomic.AtomicInteger>
+	public static final class AtomicInteger extends SparseVector<java.util.concurrent.atomic.AtomicInteger>
 	{
 		/**
 		 * serialVersionUID.
@@ -69,8 +67,7 @@ public abstract class SparseVector<T extends Number> implements
 	 * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
 	 * @version 1.0.0
 	 */
-	public static final class AtomicLong extends
-			SparseVector<java.util.concurrent.atomic.AtomicLong>
+	public static final class AtomicLong extends SparseVector<java.util.concurrent.atomic.AtomicLong>
 	{
 		/**
 		 * serialVersionUID.
@@ -93,8 +90,7 @@ public abstract class SparseVector<T extends Number> implements
 	 * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
 	 * @version 1.0.0
 	 */
-	public static final class BigDecimal extends
-			SparseVector<java.math.BigDecimal>
+	public static final class BigDecimal extends SparseVector<java.math.BigDecimal>
 	{
 		/**
 		 * serialVersionUID.
@@ -117,8 +113,7 @@ public abstract class SparseVector<T extends Number> implements
 	 * @author <a href="mailto:jiangfan0576@gmail.com">Frank Jiang</a>
 	 * @version 1.0.0
 	 */
-	public static final class BigInteger extends
-			SparseVector<java.math.BigInteger>
+	public static final class BigInteger extends SparseVector<java.math.BigInteger>
 	{
 		/**
 		 * serialVersionUID.
@@ -368,8 +363,7 @@ public abstract class SparseVector<T extends Number> implements
 	public void insert(int index, T value)
 	{
 		if (index < 0)
-			throw new IllegalArgumentException(String.format(
-					Messages.getString("SparseVector.NegativeIndex"), index)); //$NON-NLS-1$
+			throw new IllegalArgumentException(String.format(Messages.getString("SparseVector.NegativeIndex"), index)); //$NON-NLS-1$
 		if (value.doubleValue() != 0)
 			map.put(index, value);
 	}
@@ -419,7 +413,7 @@ public abstract class SparseVector<T extends Number> implements
 	@Override
 	public Iterator<T> iterator()
 	{
-		return map.values().iterator();
+		return new SparseVectorIterator<T>(map, createZero(), getMaximumIndex() + 1);
 	}
 
 	/**
@@ -482,8 +476,7 @@ public abstract class SparseVector<T extends Number> implements
 	{
 		int size = size();
 		if (a.length < size())
-			a = (T[]) java.lang.reflect.Array.newInstance(a.getClass()
-					.getComponentType(), size);
+			a = (T[]) java.lang.reflect.Array.newInstance(a.getClass().getComponentType(), size);
 		T zero = (T) createZero();
 		for (Entry e : map.entrySet())
 			a[(java.lang.Integer) e.getKey()] = (T) e.getValue();
@@ -513,11 +506,14 @@ public abstract class SparseVector<T extends Number> implements
 	public <T> T[] toArray(T[] a, int size)
 	{
 		if (a.length < size)
-			a = (T[]) java.lang.reflect.Array.newInstance(a.getClass()
-					.getComponentType(), size);
+			a = (T[]) java.lang.reflect.Array.newInstance(a.getClass().getComponentType(), size);
 		T zero = (T) createZero();
 		for (Entry e : map.entrySet())
-			a[(java.lang.Integer) e.getKey()] = (T) e.getValue();
+		{
+			java.lang.Integer index = (java.lang.Integer) e.getKey();
+			if (index < a.length)
+				a[index] = (T) e.getValue();
+		}
 		for (int i = 0; i < a.length; i++)
 			if (a[i] == null)
 				a[i] = zero;
@@ -530,7 +526,7 @@ public abstract class SparseVector<T extends Number> implements
 	@Override
 	public boolean add(T e)
 	{
-		insert(getMaximumIndex(), e);
+		insert(getMaximumIndex() + 1, e);
 		return true;
 	}
 

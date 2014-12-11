@@ -33,7 +33,7 @@ public class FFT2D
 	{
 		int nrows = x.length;
 		if (nrows < 1 || x[0].length < 1)
-			throw new IllegalArgumentException(Messages.getString("FFT2D.0")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("FFT2D.InvalidSize")); //$NON-NLS-1$
 		int ncols = x[0].length;
 		double[] data = new double[nrows * ncols * 2];
 		for (int j = 0; j < nrows; j++)
@@ -65,7 +65,7 @@ public class FFT2D
 	{
 		int nrows = y.length;
 		if (nrows < 1 || y[0].length < 1)
-			throw new IllegalArgumentException(Messages.getString("FFT2D.1")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("FFT2D.InvalidSize")); //$NON-NLS-1$
 		int ncols = y[0].length;
 		int n = nrows * ncols;
 		double[] data = new double[n * 2];

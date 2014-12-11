@@ -89,8 +89,7 @@ public class MathUtils
 	 */
 	public static final double angle(double x1, double y1, double x2, double y2)
 	{
-		return (MathUtils.angle(x1, y1) - MathUtils.angle(x2, y2)) * 180.0
-				/ Math.PI;
+		return (MathUtils.angle(x1, y1) - MathUtils.angle(x2, y2)) * 180.0 / Math.PI;
 	}
 
 	/**
@@ -105,8 +104,7 @@ public class MathUtils
 	 *            The right corner point of the angle.
 	 * @return The angle in degree.
 	 */
-	public static final double angle180(Point2D top, Point2D corner1,
-			Point2D corner2)
+	public static final double angle180(Point2D top, Point2D corner1, Point2D corner2)
 	{
 		return Math.toDegrees(anglePI(top, corner1, corner2));
 	}
@@ -122,13 +120,10 @@ public class MathUtils
 	 *            The right corner point of the angle.
 	 * @return The angle in degree.
 	 */
-	public static final double angle360(Point2D top, Point2D corner1,
-			Point2D corner2)
+	public static final double angle360(Point2D top, Point2D corner1, Point2D corner2)
 	{
-		double a1 = Math.toDegrees(Math.atan2(corner1.getY() - top.getY(),
-				corner1.getX() - top.getX()));
-		double a2 = Math.toDegrees(Math.atan2(corner2.getY() - top.getY(),
-				corner2.getX() - top.getX()));
+		double a1 = Math.toDegrees(Math.atan2(corner1.getY() - top.getY(), corner1.getX() - top.getX()));
+		double a2 = Math.toDegrees(Math.atan2(corner2.getY() - top.getY(), corner2.getX() - top.getX()));
 		if (a1 < 0)
 			a1 += 360;
 		if (a2 < 0)
@@ -149,15 +144,13 @@ public class MathUtils
 	 *            The right corner point of the angle.
 	 * @return The angle in radius.
 	 */
-	public static final double anglePI(Point2D top, Point2D corner1,
-			Point2D corner2)
+	public static final double anglePI(Point2D top, Point2D corner1, Point2D corner2)
 	{
 		double x1 = corner1.getX() - top.getX();
 		double x2 = corner2.getX() - top.getX();
 		double y1 = corner1.getY() - top.getY();
 		double y2 = corner2.getY() - top.getY();
-		return Math.acos((x1 * x2 + y1 * y2)
-				/ Math.sqrt((x1 * x1 + y1 * y1) * (x2 * x2 + y2 * y2)));
+		return Math.acos((x1 * x2 + y1 * y2) / Math.sqrt((x1 * x1 + y1 * y1) * (x2 * x2 + y2 * y2)));
 	}
 
 	/**
@@ -170,8 +163,7 @@ public class MathUtils
 	public static final double average(Collection<? extends Number> c)
 	{
 		if (c.isEmpty())
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double summary = 0.0;
 		for (Number n : c)
 			summary += n.doubleValue();
@@ -283,8 +275,7 @@ public class MathUtils
 	public static final long combine(int base, int value)
 	{
 		if (value > base || base < 0 || value < 0)
-			throw new IllegalArgumentException(String.format(
-					Messages.getString("MathUtils.IllegalBaseAndValue"), base, //$NON-NLS-1$
+			throw new IllegalArgumentException(String.format(Messages.getString("MathUtils.IllegalBaseAndValue"), base, //$NON-NLS-1$
 					value));
 		int min = base - value;
 		int max = value;
@@ -318,8 +309,7 @@ public class MathUtils
 	public static final <T> T[] combineSort(T[] data, Comparable[] keys)
 	{
 		if (data.length != keys.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.UncomatibleKeyAndData")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.UncomatibleKeyAndData")); //$NON-NLS-1$
 		/**
 		 * Sorting structure.
 		 * 
@@ -394,13 +384,11 @@ public class MathUtils
 	 *                this class
 	 *                </ul>
 	 */
-	public static final <T> List<T> combineSort(List<T> data,
-			List<? extends Comparable> keys) throws InstantiationException,
-			IllegalAccessException
+	public static final <T> List<T> combineSort(List<T> data, List<? extends Comparable> keys)
+			throws InstantiationException, IllegalAccessException
 	{
 		if (data.size() != keys.size())
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.2")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.2")); //$NON-NLS-1$
 		/**
 		 * Sorting structure.
 		 * 
@@ -451,8 +439,7 @@ public class MathUtils
 	public static final <T> T[] combineSort(T[] data, double[] keys)
 	{
 		if (data.length != keys.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.2")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.2")); //$NON-NLS-1$
 		/**
 		 * Sorting structure.
 		 * 
@@ -583,8 +570,7 @@ public class MathUtils
 	public static final double distance(Point2D x, StraightLine l)
 	{
 		double c[] = l.getCoefficients();
-		return Math.abs(c[0] * x.getX() + c[1] * x.getY() + c[2])
-				/ Math.sqrt(c[0] * c[0] + c[1] * c[1]);
+		return Math.abs(c[0] * x.getX() + c[1] * x.getY() + c[2]) / Math.sqrt(c[0] * c[0] + c[1] * c[1]);
 	}
 
 	/**
@@ -645,8 +631,7 @@ public class MathUtils
 	public static final long factorial(int value)
 	{
 		if (value > 20)
-			throw new IllegalArgumentException(String.format(
-					Messages.getString("MathUtils.OutOfLongInteger"), //$NON-NLS-1$
+			throw new IllegalArgumentException(String.format(Messages.getString("MathUtils.OutOfLongInteger"), //$NON-NLS-1$
 					value));
 		if (value <= 1)
 			return 1;
@@ -664,16 +649,11 @@ public class MathUtils
 	 */
 	public static Point2D intersect(StraightLine a, StraightLine b)
 	{
-		double x = (a.coefficients[1] * b.coefficients[2] - b.coefficients[1]
-				* a.coefficients[2])
-				/ (a.coefficients[0] * b.coefficients[1] - b.coefficients[0]
-						* a.coefficients[1]);
-		double y = -(a.coefficients[0] * b.coefficients[2] - b.coefficients[0]
-				* a.coefficients[2])
-				/ (a.coefficients[0] * b.coefficients[1] - b.coefficients[0]
-						* a.coefficients[1]);
-		if (Double.isNaN(x) || Double.isInfinite(x) || Double.isNaN(y)
-				|| Double.isInfinite(y))
+		double x = (a.coefficients[1] * b.coefficients[2] - b.coefficients[1] * a.coefficients[2])
+				/ (a.coefficients[0] * b.coefficients[1] - b.coefficients[0] * a.coefficients[1]);
+		double y = -(a.coefficients[0] * b.coefficients[2] - b.coefficients[0] * a.coefficients[2])
+				/ (a.coefficients[0] * b.coefficients[1] - b.coefficients[0] * a.coefficients[1]);
+		if (Double.isNaN(x) || Double.isInfinite(x) || Double.isNaN(y) || Double.isInfinite(y))
 			return null;
 		else
 			return new Point2D.Double(x, y);
@@ -725,8 +705,7 @@ public class MathUtils
 	 *            the point set
 	 * @return the regressed straight line
 	 */
-	public static final StraightLine linearRegression(
-			Collection<? extends Point2D> c)
+	public static final StraightLine linearRegression(Collection<? extends Point2D> c)
 	{
 		boolean flag = true;// the flag for the unique x values.
 		double t = Double.NaN;
@@ -770,8 +749,7 @@ public class MathUtils
 	 *            The delete rate. (0.0&lt;r&lt;0.9)
 	 * @return The filtered points.
 	 */
-	public static Vector<Point2D> linearRegressionCenterFilter(
-			Collection<? extends Point2D> c, double rate)
+	public static Vector<Point2D> linearRegressionCenterFilter(Collection<? extends Point2D> c, double rate)
 	{
 		if (rate > 0.9)
 			rate = 0.9;
@@ -784,12 +762,10 @@ public class MathUtils
 			@Override
 			public int compare(Point2D o1, Point2D o2)
 			{
-				return (int) Math.signum(center.distance(o1)
-						- center.distance(o2));
+				return (int) Math.signum(center.distance(o1) - center.distance(o2));
 			}
 		};
-		PriorityQueue<Point2D> pq = new PriorityQueue<Point2D>(initialCapacity,
-				comparator);
+		PriorityQueue<Point2D> pq = new PriorityQueue<Point2D>(initialCapacity, comparator);
 		for (Point2D e : c)
 			pq.add(e);
 		Vector<Point2D> v = new Vector<Point2D>(initialCapacity);
@@ -809,8 +785,7 @@ public class MathUtils
 	 *            The delete rate. (0.0&lt;r&lt;0.9)
 	 * @return The filtered points.
 	 */
-	public static Vector<Point2D> linearRegressionLinearFilter(
-			Collection<? extends Point2D> c, double rate)
+	public static Vector<Point2D> linearRegressionLinearFilter(Collection<? extends Point2D> c, double rate)
 	{
 		if (rate > 0.9)
 			rate = 0.9;
@@ -823,12 +798,10 @@ public class MathUtils
 			@Override
 			public int compare(Point2D o1, Point2D o2)
 			{
-				return (int) Math.signum(MathUtils.distance(o1, l)
-						- MathUtils.distance(o2, l));
+				return (int) Math.signum(MathUtils.distance(o1, l) - MathUtils.distance(o2, l));
 			}
 		};
-		PriorityQueue<Point2D> pq = new PriorityQueue<Point2D>(initialCapacity,
-				comparator);
+		PriorityQueue<Point2D> pq = new PriorityQueue<Point2D>(initialCapacity, comparator);
 		for (Point2D e : c)
 			pq.add(e);
 		Vector<Point2D> v = new Vector<Point2D>(initialCapacity);
@@ -849,8 +822,8 @@ public class MathUtils
 	 *            The delete rate. (0.0&lt;r&lt;0.9)
 	 * @return The filtered points.
 	 */
-	public static Vector<Point2D> linearRegressionLinearFilter(
-			final StraightLine l, Collection<? extends Point2D> c, double rate)
+	public static Vector<Point2D> linearRegressionLinearFilter(final StraightLine l, Collection<? extends Point2D> c,
+			double rate)
 	{
 		if (rate > 0.9)
 			rate = 0.9;
@@ -862,12 +835,10 @@ public class MathUtils
 			@Override
 			public int compare(Point2D o1, Point2D o2)
 			{
-				return (int) Math.signum(MathUtils.distance(o1, l)
-						- MathUtils.distance(o2, l));
+				return (int) Math.signum(MathUtils.distance(o1, l) - MathUtils.distance(o2, l));
 			}
 		};
-		PriorityQueue<Point2D> pq = new PriorityQueue<Point2D>(initialCapacity,
-				comparator);
+		PriorityQueue<Point2D> pq = new PriorityQueue<Point2D>(initialCapacity, comparator);
 		for (Point2D e : c)
 			pq.add(e);
 		Vector<Point2D> v = new Vector<Point2D>(initialCapacity);
@@ -889,8 +860,7 @@ public class MathUtils
 	 *            the point set
 	 * @return the relation in [-1, 1]
 	 */
-	public static final double linearRegressionRelation(
-			Collection<? extends Point2D> c)
+	public static final double linearRegressionRelation(Collection<? extends Point2D> c)
 	{
 		double x, y;
 		double sumX = 0.0;
@@ -929,8 +899,7 @@ public class MathUtils
 	public static final byte maximum(byte[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		byte max = a[0];
 		for (byte i : a)
 			if (i > max)
@@ -948,8 +917,7 @@ public class MathUtils
 	public static final double maximum(Collection<? extends Number> c)
 	{
 		if (c.isEmpty())
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		Iterator<? extends Number> it = c.iterator();
 		Number value = it.next();
 		Number temp = null;
@@ -996,8 +964,7 @@ public class MathUtils
 	public static final double maximum(double[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		double max = a[0];
 		for (double i : a)
 			if (i > max)
@@ -1015,8 +982,7 @@ public class MathUtils
 	public static final float maximum(float[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		float max = a[0];
 		for (float i : a)
 			if (i > max)
@@ -1034,8 +1000,7 @@ public class MathUtils
 	public static final int maximum(int[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int max = a[0];
 		for (int i : a)
 			if (i > max)
@@ -1077,8 +1042,7 @@ public class MathUtils
 	public static final long maximum(long[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		long max = a[0];
 		for (long i : a)
 			if (i > max)
@@ -1096,8 +1060,7 @@ public class MathUtils
 	public static final short maximum(short[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		short max = a[0];
 		for (short i : a)
 			if (i > max)
@@ -1115,8 +1078,7 @@ public class MathUtils
 	public static final int maximumIndex(byte[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int maxIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] > a[maxIdx])
@@ -1134,8 +1096,7 @@ public class MathUtils
 	public static final int maximumIndex(double[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int maxIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] > a[maxIdx])
@@ -1153,8 +1114,7 @@ public class MathUtils
 	public static final int maximumIndex(float[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int maxIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] > a[maxIdx])
@@ -1244,8 +1204,7 @@ public class MathUtils
 	public static final double minimum(Collection<? extends Number> c)
 	{
 		if (c.isEmpty())
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		Iterator<? extends Number> it = c.iterator();
 		Number value = it.next();
 		Number temp = null;
@@ -1406,8 +1365,7 @@ public class MathUtils
 	public static final int minimumIndex(byte[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1425,8 +1383,7 @@ public class MathUtils
 	public static final int minimumIndex(double[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1444,8 +1401,7 @@ public class MathUtils
 	public static final int minimumIndex(float[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1463,8 +1419,7 @@ public class MathUtils
 	public static final int minimumIndex(int[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1482,8 +1437,7 @@ public class MathUtils
 	public static final int minimumIndex(long[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1501,8 +1455,7 @@ public class MathUtils
 	public static final int minimumIndex(short[] a)
 	{
 		if (a.length < 1)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyArray")); //$NON-NLS-1$
 		int minIdx = 0;
 		for (int i = 0; i < a.length; i++)
 			if (a[i] < a[minIdx])
@@ -1577,8 +1530,7 @@ public class MathUtils
 		}
 		double length = (double) (maximum - minimum);
 		for (int i = 0; i < data.length; i++)
-			data[i] = (double) (minimum + (data[i] - min) / (double) len
-					* length);
+			data[i] = (double) (minimum + (data[i] - min) / (double) len * length);
 	}
 
 	/**
@@ -1613,8 +1565,7 @@ public class MathUtils
 		}
 		float length = (float) (maximum - minimum);
 		for (int i = 0; i < data.length; i++)
-			data[i] = (float) (minimum + (data[i] - min) / (double) len
-					* length);
+			data[i] = (float) (minimum + (data[i] - min) / (double) len * length);
 	}
 
 	/**
@@ -1719,8 +1670,7 @@ public class MathUtils
 		}
 		short length = (short) (maximum - minimum);
 		for (int i = 0; i < data.length; i++)
-			data[i] = (short) (minimum + (data[i] - min) / (double) len
-					* length);
+			data[i] = (short) (minimum + (data[i] - min) / (double) len * length);
 	}
 
 	/**
@@ -1731,8 +1681,7 @@ public class MathUtils
 	public static final double pearson(int[] x, int[] y)
 	{
 		if (x.length != y.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double[] xt = new double[x.length];
 		double[] yt = new double[y.length];
 		for (int i = 0; i < xt.length; i++)
@@ -1767,8 +1716,7 @@ public class MathUtils
 	public static final double pearson(long[] x, long[] y)
 	{
 		if (x.length != y.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double[] xt = new double[x.length];
 		double[] yt = new double[y.length];
 		for (int i = 0; i < xt.length; i++)
@@ -1803,8 +1751,7 @@ public class MathUtils
 	public static final double pearson(float[] x, float[] y)
 	{
 		if (x.length != y.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double[] xt = new double[x.length];
 		double[] yt = new double[y.length];
 		for (int i = 0; i < xt.length; i++)
@@ -1839,8 +1786,7 @@ public class MathUtils
 	public static final double pearson(double[] x, double[] y)
 	{
 		if (x.length != y.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double[] xt = new double[x.length];
 		double[] yt = new double[y.length];
 		for (int i = 0; i < xt.length; i++)
@@ -1875,8 +1821,7 @@ public class MathUtils
 	public static final <T extends Number> double pearson(T[] x, T[] y)
 	{
 		if (x.length != y.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double[] xt = new double[x.length];
 		double[] yt = new double[y.length];
 		for (int i = 0; i < xt.length; i++)
@@ -1914,8 +1859,7 @@ public class MathUtils
 	public static final long permute(int base, int value)
 	{
 		if (value > base || base < 0 || value < 0)
-			throw new IllegalArgumentException(String.format(
-					Messages.getString("MathUtils.IllegalBaseAndValue"), base, //$NON-NLS-1$
+			throw new IllegalArgumentException(String.format(Messages.getString("MathUtils.IllegalBaseAndValue"), base, //$NON-NLS-1$
 					value));
 		int n = base - value;
 		int t = 1;
@@ -1958,8 +1902,7 @@ public class MathUtils
 	public static final double relativeError(byte[] evaluated, byte[] actual)
 	{
 		if (evaluated.length != actual.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -1979,8 +1922,7 @@ public class MathUtils
 	public static final double relativeError(double[] evaluated, double[] actual)
 	{
 		if (evaluated.length != actual.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -2000,8 +1942,7 @@ public class MathUtils
 	public static final double relativeError(float[] evaluated, float[] actual)
 	{
 		if (evaluated.length != actual.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -2021,8 +1962,7 @@ public class MathUtils
 	public static final double relativeError(int[] evaluated, int[] actual)
 	{
 		if (evaluated.length != actual.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -2042,8 +1982,7 @@ public class MathUtils
 	public static final double relativeError(long[] evaluated, long[] actual)
 	{
 		if (evaluated.length != actual.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -2079,8 +2018,7 @@ public class MathUtils
 	public static final double relativeError(short[] evaluated, short[] actual)
 	{
 		if (evaluated.length != actual.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double re = 0.0;
 		for (int i = 0; i < evaluated.length; i++)
 			re += Math.pow(evaluated[i] - actual[i], 2.0);
@@ -2110,8 +2048,7 @@ public class MathUtils
 	public static Vector<Integer> searchTrough(byte[] data, double threshold)
 	{
 		if (data.length < 5)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2165,8 +2102,7 @@ public class MathUtils
 	public static Vector<Integer> searchTrough(double[] data, double threshold)
 	{
 		if (data.length < 5)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2220,8 +2156,7 @@ public class MathUtils
 	public static Vector<Integer> searchTrough(float[] data, double threshold)
 	{
 		if (data.length < 5)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2275,8 +2210,7 @@ public class MathUtils
 	public static Vector<Integer> searchTrough(int[] data, double threshold)
 	{
 		if (data.length < 5)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2330,8 +2264,7 @@ public class MathUtils
 	public static Vector<Integer> searchTrough(long[] data, double threshold)
 	{
 		if (data.length < 5)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2385,8 +2318,7 @@ public class MathUtils
 	public static Vector<Integer> searchTrough(short[] data, double threshold)
 	{
 		if (data.length < 5)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.DataSizeTooSmall")); //$NON-NLS-1$
 		// confirm the starting direction
 		Vector<Integer> v = new Vector<Integer>();
 		double curr = 0;// the current value
@@ -2930,8 +2862,7 @@ public class MathUtils
 	 * @return the squared linear regression relation in [0, 1]
 	 * @see MathUtils#linearRegressionRelation(Collection)
 	 */
-	public static final double squaredLinearRegressionRelation(
-			Collection<? extends Point2D> c)
+	public static final double squaredLinearRegressionRelation(Collection<? extends Point2D> c)
 	{
 		return Math.pow(linearRegressionRelation(c), 2.0);
 	}
@@ -3143,8 +3074,7 @@ public class MathUtils
 	 * 
 	 * @return The area of the triangle.
 	 */
-	static final private double triangle_area(double x1, double y1, double x2,
-			double y2, double x3, double y3)
+	static final private double triangle_area(double x1, double y1, double x2, double y2, double x3, double y3)
 	{
 		return Math.abs((x1 - x3) * (y2 - y3) - (x2 - x3) * (y1 - y3)) / 2;
 	}
@@ -3176,8 +3106,7 @@ public class MathUtils
 	 */
 	public static final double triangleArea(Point2D a, Point2D b, Point2D c)
 	{
-		return MathUtils.triangle_area(a.getX(), a.getY(), b.getX(), b.getY(),
-				c.getX(), c.getY());
+		return MathUtils.triangle_area(a.getX(), a.getY(), b.getX(), b.getY(), c.getX(), c.getY());
 	}
 
 	/**
@@ -3190,8 +3119,7 @@ public class MathUtils
 	public static final double variance(Collection<? extends Number> c)
 	{
 		if (c.isEmpty())
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3209,8 +3137,7 @@ public class MathUtils
 	public static final double variance(double[] c)
 	{
 		if (c == null || c.length == 0)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3227,8 +3154,7 @@ public class MathUtils
 	public static final <T extends Number> double variance(T[] c)
 	{
 		if (c == null || c.length == 0)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3246,8 +3172,7 @@ public class MathUtils
 	public static final double variance(float[] c)
 	{
 		if (c == null || c.length == 0)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3265,8 +3190,7 @@ public class MathUtils
 	public static final double variance(int[] c)
 	{
 		if (c == null || c.length == 0)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3284,8 +3208,7 @@ public class MathUtils
 	public static final double variance(long[] c)
 	{
 		if (c == null || c.length == 0)
-			throw new NullPointerException(
-					Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
+			throw new NullPointerException(Messages.getString("MathUtils.EmptyCollection")); //$NON-NLS-1$
 		double average = MathUtils.average(c);
 		double summary = 0.0;
 		for (Number n : c)
@@ -3569,8 +3492,7 @@ public class MathUtils
 		int p01 = data[dx][dy + 1];
 		int p10 = data[dx + 1][dy];
 		int p11 = data[dx + 1][dy + 1];
-		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy)
-				- (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
+		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy) - (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
 	}
 
 	/**
@@ -3608,8 +3530,7 @@ public class MathUtils
 		long p01 = data[dx][dy + 1];
 		long p10 = data[dx + 1][dy];
 		long p11 = data[dx + 1][dy + 1];
-		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy)
-				- (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
+		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy) - (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
 	}
 
 	/**
@@ -3647,8 +3568,7 @@ public class MathUtils
 		float p01 = data[dx][dy + 1];
 		float p10 = data[dx + 1][dy];
 		float p11 = data[dx + 1][dy + 1];
-		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy)
-				- (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
+		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy) - (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
 	}
 
 	/**
@@ -3688,19 +3608,16 @@ public class MathUtils
 				return data[maxY][maxX];
 			else
 				// calculate when only y is at the end
-				return (x - dx) * data[maxY][dx] + (dx + 1 - x)
-						* data[maxY][dx + 1];
+				return (x - dx) * data[maxY][dx] + (dx + 1 - x) * data[maxY][dx + 1];
 		}
 		else if (dx + 1 > maxX)
 			// calculate when only x is at the end
-			return (y - dy) * data[dy][maxX] + (dy + 1 - y)
-					* data[dy + 1][maxX];
+			return (y - dy) * data[dy][maxX] + (dy + 1 - y) * data[dy + 1][maxX];
 		double p00 = data[dy][dx];
 		double p01 = data[dy + 1][dx];
 		double p10 = data[dy][dx + 1];
 		double p11 = data[dy + 1][dx + 1];
-		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy)
-				- (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
+		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy) - (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
 	}
 
 	/**
@@ -3724,14 +3641,12 @@ public class MathUtils
 	 *            the decimal y coordinate
 	 * @return the interpolation value
 	 */
-	public static final <T extends Number> double interpolate(T[][] data,
-			double x, double y)
+	public static final <T extends Number> double interpolate(T[][] data, double x, double y)
 	{
 		if (data.length == 0)
 			return 0;
 		if (x > data.length - 1 || y > data[0].length - 1)
-			return data[data.length - 1][data[data.length - 1].length - 1]
-					.doubleValue();
+			return data[data.length - 1][data[data.length - 1].length - 1].doubleValue();
 		if (x < 0 || y < 0)
 			return data[0][0].doubleValue();
 		int dx = (int) x;
@@ -3740,8 +3655,7 @@ public class MathUtils
 		double p01 = data[dx][dy + 1].doubleValue();
 		double p10 = data[dx + 1][dy].doubleValue();
 		double p11 = data[dx + 1][dy + 1].doubleValue();
-		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy)
-				- (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
+		return p00 + (p10 - p00) * (x - dx) + (p01 - p00) * (y - dy) - (p11 + p00 - p10 - p11) * (x - dx) * (y - dy);
 	}
 
 	/**
@@ -3850,8 +3764,7 @@ public class MathUtils
 	public static final double disEuclidean(int[] a, int[] b)
 	{
 		if (a.length != b.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double sum = 0, d;
 		for (int i = 0; i < a.length; i++)
 		{
@@ -3872,8 +3785,7 @@ public class MathUtils
 	public static final double disEuclidean(long[] a, long[] b)
 	{
 		if (a.length != b.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double sum = 0, d;
 		for (int i = 0; i < a.length; i++)
 		{
@@ -3894,8 +3806,7 @@ public class MathUtils
 	public static final double disEuclidean(float[] a, float[] b)
 	{
 		if (a.length != b.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double sum = 0, d;
 		for (int i = 0; i < a.length; i++)
 		{
@@ -3916,8 +3827,7 @@ public class MathUtils
 	public static final double disEuclidean(double[] a, double[] b)
 	{
 		if (a.length != b.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double sum = 0, d;
 		for (int i = 0; i < a.length; i++)
 		{
@@ -3938,8 +3848,7 @@ public class MathUtils
 	public static final <T extends Number> double disEuclidean(T[] a, T[] b)
 	{
 		if (a.length != b.length)
-			throw new IllegalArgumentException(
-					Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
 		double sum = 0, d;
 		for (int i = 0; i < a.length; i++)
 		{
@@ -3947,6 +3856,126 @@ public class MathUtils
 			sum += d * d;
 		}
 		return sum;
+	}
+
+	/**
+	 * Returns the Minkowski distance between vector <code>a</code> and
+	 * <code>b</code>.
+	 * 
+	 * @param a
+	 * @param b
+	 * @param order
+	 * @return the Minkowski distance
+	 */
+	public static final double disMinkowski(int[] a, int[] b, int order)
+	{
+		if (a.length != b.length)
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		if (order < 1)
+			throw new IllegalArgumentException(Messages.getString("MathUtils.OrderMustPositive")); //$NON-NLS-1$
+		double sum = 0, d;
+		for (int i = 0; i < a.length; i++)
+		{
+			d = a[i] - b[i];
+			sum += Math.pow(d, order);
+		}
+		return Math.pow(sum, 1.0 / order);
+	}
+
+	/**
+	 * Returns the Minkowski distance between vector <code>a</code> and
+	 * <code>b</code>.
+	 * 
+	 * @param a
+	 * @param b
+	 * @param order
+	 * @return the Minkowski distance
+	 */
+	public static final double disMinkowski(long[] a, long[] b, int order)
+	{
+		if (a.length != b.length)
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		if (order < 1)
+			throw new IllegalArgumentException(Messages.getString("MathUtils.OrderMustPositive")); //$NON-NLS-1$
+		double sum = 0, d;
+		for (int i = 0; i < a.length; i++)
+		{
+			d = a[i] - b[i];
+			sum += Math.pow(d, order);
+		}
+		return Math.pow(sum, 1.0 / order);
+	}
+
+	/**
+	 * Returns the Minkowski distance between vector <code>a</code> and
+	 * <code>b</code>.
+	 * 
+	 * @param a
+	 * @param b
+	 * @param order
+	 * @return the Minkowski distance
+	 */
+	public static final double disMinkowski(float[] a, float[] b, int order)
+	{
+		if (a.length != b.length)
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		if (order < 1)
+			throw new IllegalArgumentException(Messages.getString("MathUtils.OrderMustPositive")); //$NON-NLS-1$
+		double sum = 0, d;
+		for (int i = 0; i < a.length; i++)
+		{
+			d = a[i] - b[i];
+			sum += Math.pow(d, order);
+		}
+		return Math.pow(sum, 1.0 / order);
+	}
+
+	/**
+	 * Returns the Minkowski distance between vector <code>a</code> and
+	 * <code>b</code>.
+	 * 
+	 * @param a
+	 * @param b
+	 * @param order
+	 * @return the Minkowski distance
+	 */
+	public static final double disMinkowski(double[] a, double[] b, int order)
+	{
+		if (a.length != b.length)
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		if (order < 1)
+			throw new IllegalArgumentException(Messages.getString("MathUtils.OrderMustPositive")); //$NON-NLS-1$
+		double sum = 0, d;
+		for (int i = 0; i < a.length; i++)
+		{
+			d = a[i] - b[i];
+			sum += Math.pow(d, order);
+		}
+		return Math.pow(sum, 1.0 / order);
+	}
+
+	/**
+	 * Returns the Minkowski distance between vector <code>a</code> and
+	 * <code>b</code>.
+	 * 
+	 * @param a
+	 * @param b
+	 * @param order
+	 * @return the Minkowski distance
+	 */
+	public static final <T extends Number> double disMinkowski(T[] a, T[] b, int order)
+	{
+		if (a.length != b.length)
+			throw new IllegalArgumentException(Messages.getString("MathUtils.ArraySizeNotAgreed")); //$NON-NLS-1$
+		if (order < 1)
+			throw new IllegalArgumentException(Messages.getString("MathUtils.OrderMustPositive")); //$NON-NLS-1$
+		double sum = 0, d;
+		for (int i = 0; i < a.length; i++)
+		{
+			d = a[i].doubleValue() - b[i].doubleValue();
+			sum += Math.pow(d, order);
+		}
+		return Math.pow(sum, 1.0 / order);
 	}
 
 	/**
@@ -4035,8 +4064,7 @@ public class MathUtils
 		double ya = MathUtils.average(y);
 		for (int j = 0; j < y.length; j++)
 			for (int i = 0; i < x.length; i++)
-				cov.set(i, j, (x[i].doubleValue() - xa)
-						* (y[i].doubleValue() - ya));
+				cov.set(i, j, (x[i].doubleValue() - xa) * (y[i].doubleValue() - ya));
 		return cov;
 	}
 }

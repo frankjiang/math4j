@@ -36,7 +36,7 @@ public class Combination
 		long sizeL = MathUtils.combine(base, value);
 		if (sizeL > Integer.MAX_VALUE)
 			throw new IllegalArgumentException(
-					Messages.getString("Combination.0")); //$NON-NLS-1$
+					Messages.getString("Combination.OutOfIntegerValue")); //$NON-NLS-1$
 		int size = (int) sizeL;
 		combinations = new Object[size][value];
 	}
@@ -98,7 +98,7 @@ public class Combination
 		if (length < 1 || length > data.length)
 			throw new IllegalArgumentException(
 					String.format(
-							Messages.getString("Combination.1"), //$NON-NLS-1$
+							Messages.getString("Combination.OutOfBounds"), //$NON-NLS-1$
 							length, 1, data.length));
 		combinate(combinations, data, new Object[0], length);
 	}
@@ -153,7 +153,7 @@ public class Combination
 		if (allCombinations.length != c.combinations.length
 				|| allCombinations[0].length != c.combinations[0].length)
 			throw new IllegalArgumentException(
-					Messages.getString("Combination.2")); //$NON-NLS-1$
+					Messages.getString("Combination.InvalidSize")); //$NON-NLS-1$
 		c.combinate(data, length);
 		Object obj;
 		for (int i = 0; i < allCombinations.length; i++)
