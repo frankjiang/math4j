@@ -4,10 +4,13 @@
  */
 package com.frank.math.struct;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
+
+import com.frank.math.Messages;
 
 /**
  * The search multiple map.
@@ -22,14 +25,33 @@ public class SearchMap<T>
 	/**
 	 * The actual map which stored data.
 	 */
-	protected LinkedHashMap<T, Integer>	map;
+	protected Map<T, Integer>	map;
 
 	/**
 	 * Construct a search map.
 	 */
 	public SearchMap()
 	{
-		map = new LinkedHashMap<T, Integer>();
+		this(LinkedHashMap.class);
+	}
+
+	/**
+	 * Construct an instance of <tt>SearchMap</tt>.
+	 * 
+	 * @param mapType
+	 *            the inner map type
+	 */
+	public SearchMap(Class<? extends Map> mapType)
+	{
+		try
+		{
+			map = mapType.getConstructor().newInstance();
+		}
+		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e)
+		{
+			throw new RuntimeException(Messages.getString("SearchMap.UnsupportedMapType"));//$NON-NLS-0$
+		}
 	}
 
 	/**

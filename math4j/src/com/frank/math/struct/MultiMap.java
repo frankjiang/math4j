@@ -161,8 +161,8 @@ public abstract class MultiMap<K, V> implements Map<K, Collection<V>>,
 	 */
 	public Collection<V> getNotNull(K key)
 	{
-		Collection<V> list = map.get(key);
-		if (list == null)
+		Collection<V> list = null;
+		if (!map.containsKey(key))
 		{
 			try
 			{
@@ -178,6 +178,8 @@ public abstract class MultiMap<K, V> implements Map<K, Collection<V>>,
 			}
 			map.put(key, list);
 		}
+		else
+			list = map.get(key);
 		return list;
 	}
 
