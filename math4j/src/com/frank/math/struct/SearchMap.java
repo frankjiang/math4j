@@ -5,6 +5,7 @@
 package com.frank.math.struct;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -66,6 +67,17 @@ public class SearchMap<T>
 			map.put(key, 1);
 		else
 			map.put(key, value + 1);
+	}
+
+	/**
+	 * Add one value to the search map.
+	 * 
+	 * @param key
+	 */
+	public void addAll(Collection<? extends T> c)
+	{
+		for (T e : c)
+			add(e);
 	}
 
 	/**
