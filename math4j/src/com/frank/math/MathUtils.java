@@ -6,11 +6,13 @@ package com.frank.math;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
@@ -4066,5 +4068,162 @@ public class MathUtils
 			for (int i = 0; i < x.length; i++)
 				cov.set(i, j, (x[i].doubleValue() - xa) * (y[i].doubleValue() - ya));
 		return cov;
+	}
+
+	/**
+	 * Calculate the square root of the specified <code>b</code> and returns
+	 * only the integer part of square root.
+	 * <p>
+	 * It will return <code>ZERO</code> if it meet nonpositive value.
+	 * </p>
+	 * 
+	 * @param b
+	 * @return (int)&radic;<code>b</code>
+	 */
+	public final static BigInteger sqrt(BigInteger b)
+	{
+		String num = b.toString(); // the string of b
+		int len = num.length(); // the bit count in 10 radix 
+		if (b.compareTo(BigInteger.ZERO) < 0)
+			return BigInteger.ZERO;
+		BigInteger sqrt = BigInteger.ZERO; // the result of square root
+		BigInteger pre = BigInteger.ZERO; // the minuend to calculate in square root
+		BigInteger dividend;// the dividend to calculate in square root
+		BigInteger trynum; // try number, the subtrahend to calculate in square root
+		BigInteger flag; // try number, the number after a statisfied subtrahend
+		BigInteger twenty = new BigInteger("20"); // big integer version: 20
+		if (len % 2 == 0) // length is even
+			for (int i = 0; i < len / 2; ++i) // the length of the sqrt root must be len/2
+			{
+				dividend = new BigInteger(pre + num.substring(2 * i, 2 * i + 2));
+				for (int j = 0; j <= 9; ++j)
+				{
+					trynum = twenty.multiply(sqrt).multiply(new BigInteger(j + ""))
+							.add(new BigInteger(j + "").multiply(new BigInteger(j + "")));
+					flag = twenty.multiply(sqrt).multiply(new BigInteger((j + 1) + ""))
+							.add(new BigInteger((j + 1) + "").multiply(new BigInteger((j + 1) + "")));
+					// if j statisify that the substraction of trynum & minuend is a smallest positive number
+					if (trynum.subtract(dividend).compareTo(BigInteger.ZERO) <= 0
+							&& flag.subtract(dividend).compareTo(BigInteger.ZERO) > 0)
+					{
+						sqrt = new BigInteger(sqrt.toString() + j);
+						pre = dividend.subtract(trynum);// update
+						break;
+					}
+				}
+			}
+		else
+			// length is odd
+			for (int i = 0; i < len / 2 + 1; ++i) // the length of the sqrt root must be len/2 + 1
+			{
+				if (i == 0) // the head of odd number should be specially dealed
+					dividend = new BigInteger(num.charAt(0) + "");
+				else
+					dividend = new BigInteger(pre + num.substring(2 * i - 1, 2 * i + 1));
+				for (int j = 0; j <= 9; ++j)
+				{
+					trynum = twenty.multiply(sqrt).multiply(new BigInteger(j + ""))
+							.add(new BigInteger(j + "").multiply(new BigInteger(j + "")));
+					flag = twenty.multiply(sqrt).multiply(new BigInteger((j + 1) + ""))
+							.add(new BigInteger((j + 1) + "").multiply(new BigInteger((j + 1) + "")));
+					// if j statisify that the substraction of trynum & minuend is a smallest positive number
+					if (trynum.subtract(dividend).compareTo(BigInteger.ZERO) <= 0
+							&& flag.subtract(dividend).compareTo(BigInteger.ZERO) > 0)
+					{
+						sqrt = new BigInteger(sqrt.toString() + j);
+						pre = dividend.subtract(trynum);
+						break;
+					}
+				}
+			}
+		return sqrt;
+	}
+
+	/**
+	 * Returns the factors of the specified <code>n</code>
+	 * 
+	 * @param n
+	 * @return the factors of the specified <code>n</code>
+	 */
+	public static List<BigInteger> factoring(BigInteger n)
+	{
+		LinkedList<BigInteger> list = new LinkedList<>();
+		BigInteger max, i, j;
+		BigInteger two = BigInteger.valueOf(2);
+		while (n.compareTo(two) > 0)
+		{
+			max = sqrt(n).add(BigInteger.ONE);
+			j = n;
+			for (i = two; i.compareTo(max) <= 0; i = i.add(BigInteger.ONE))
+				if (n.mod(i) == BigInteger.ZERO)
+				{
+					list.add(i);
+					n = n.divide(i);
+					break;
+				}
+			if (j == n)
+				break;
+		}
+		if (list.isEmpty() || n.compareTo(two) > 0)
+			list.add(n);
+		return list;
+	}
+
+	/**
+	 * Returns the factors of the specified <code>n</code>
+	 * 
+	 * @param n
+	 * @return the factors of the specified <code>n</code>
+	 */
+	public static List<Long> factoring(long n)
+	{
+		LinkedList<Long> list = new LinkedList<>();
+		long i, j, max;
+		while (n > 2)
+		{
+			max = (long) Math.sqrt(n) + 1;
+			j = n;
+			for (i = 2; i <= max; i++)
+				if (n % i == 0)
+				{
+					list.add(i);
+					n /= i;
+					break;
+				}
+			if (j == n)
+				break;
+		}
+		if (list.isEmpty() || n > 2)
+			list.add(n);
+		return list;
+	}
+
+	/**
+	 * Returns the factors of the specified <code>n</code>
+	 * 
+	 * @param n
+	 * @return the factors of the specified <code>n</code>
+	 */
+	public static List<Integer> factoring(int n)
+	{
+		LinkedList<Integer> list = new LinkedList<>();
+		int i, j, max;
+		while (n > 2)
+		{
+			max = (int) Math.sqrt(n) + 1;
+			j = n;
+			for (i = 2; i <= max; i++)
+				if (n % i == 0)
+				{
+					list.add(i);
+					n /= i;
+					break;
+				}
+			if (j == n)
+				break;
+		}
+		if (list.isEmpty() || n > 2)
+			list.add(n);
+		return list;
 	}
 }
