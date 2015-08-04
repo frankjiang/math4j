@@ -54,7 +54,7 @@ public class SearchMap<T>
 			throw new RuntimeException(Messages.getString("SearchMap.UnsupportedMapType"));//$NON-NLS-0$
 		}
 	}
-
+	
 	/**
 	 * Add one value to the search map.
 	 * 
@@ -62,11 +62,21 @@ public class SearchMap<T>
 	 */
 	public void add(T key)
 	{
+		add(key, 1);
+	}
+
+	/**
+	 * Add one value to the search map.
+	 * 
+	 * @param key
+	 */
+	public void add(T key, int times)
+	{
 		Integer value = map.get(key);
 		if (value == null)
-			map.put(key, 1);
+			map.put(key, times);
 		else
-			map.put(key, value + 1);
+			map.put(key, value + times);
 	}
 
 	/**
