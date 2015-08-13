@@ -640,6 +640,22 @@ public class MathUtils
 		else
 			return value * factorial(value - 1);
 	}
+	
+	/**
+	 * Returns the factorial of the specified value.
+	 * 
+	 * @param value
+	 *            the specified value
+	 * @return the factorial
+	 */
+	public static BigInteger factorialLarge(int value)
+	{
+		BigInteger max = BigInteger.valueOf(value);
+		BigInteger v = BigInteger.ONE;
+		for (BigInteger i = BigInteger.valueOf(2); i.compareTo(max) < 1; i = i.add(BigInteger.ONE))
+			v = v.multiply(i);
+		return v;
+	}
 
 	/**
 	 * Returns the intersection point of the specified lines {@code a} and
