@@ -5,7 +5,7 @@
  * 2014.
  * Use is subject to license terms.
  */
-package com.frank.math.struct;
+package com.frank.math.struct.mmap;
 
 import java.util.Collection;
 import java.util.HashMap;

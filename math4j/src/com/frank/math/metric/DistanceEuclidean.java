@@ -10,7 +10,7 @@ package com.frank.math.metric;
 import com.frank.math.MathUtils;
 
 /**
- * TODO
+ * The implements of Euclidean distance.
  * <p>
  * </p>
  * 

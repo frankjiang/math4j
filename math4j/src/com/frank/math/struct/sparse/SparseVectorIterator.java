@@ -5,7 +5,7 @@
  * 2014年11月2日.
  * Use is subject to license terms.
  */
-package com.frank.math.struct;
+package com.frank.math.struct.sparse;
 
 import java.util.Iterator;
 import java.util.Map;

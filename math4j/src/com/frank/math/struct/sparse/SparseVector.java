@@ -3,7 +3,7 @@
  * reserved. SparseVector.java is PROPRIETARY/CONFIDENTIAL built in 2013. Use is
  * subject to license terms.
  */
-package com.frank.math.struct;
+package com.frank.math.struct.sparse;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -52,7 +52,7 @@ public abstract class SparseVector<T extends Number> implements java.io.Serializ
 		private static final long	serialVersionUID	= -2630657714244010960L;
 
 		/**
-		 * @see com.frank.math.struct.SparseVector#createZero()
+		 * @see com.frank.math.struct.sparse.SparseVector#createZero()
 		 */
 		@Override
 		protected java.util.concurrent.atomic.AtomicInteger createZero()
@@ -75,7 +75,7 @@ public abstract class SparseVector<T extends Number> implements java.io.Serializ
 		private static final long	serialVersionUID	= -2047126350711218806L;
 
 		/**
-		 * @see com.frank.math.struct.SparseVector#createZero()
+		 * @see com.frank.math.struct.sparse.SparseVector#createZero()
 		 */
 		@Override
 		protected java.util.concurrent.atomic.AtomicLong createZero()
@@ -98,7 +98,7 @@ public abstract class SparseVector<T extends Number> implements java.io.Serializ
 		private static final long	serialVersionUID	= -8522775565140622737L;
 
 		/**
-		 * @see com.frank.math.struct.SparseVector#createZero()
+		 * @see com.frank.math.struct.sparse.SparseVector#createZero()
 		 */
 		@Override
 		protected java.math.BigDecimal createZero()
@@ -121,7 +121,7 @@ public abstract class SparseVector<T extends Number> implements java.io.Serializ
 		private static final long	serialVersionUID	= -2700468802169806813L;
 
 		/**
-		 * @see com.frank.math.struct.SparseVector#createZero()
+		 * @see com.frank.math.struct.sparse.SparseVector#createZero()
 		 */
 		@Override
 		protected java.math.BigInteger createZero()
@@ -144,7 +144,7 @@ public abstract class SparseVector<T extends Number> implements java.io.Serializ
 		private static final long	serialVersionUID	= -8563583148310929183L;
 
 		/**
-		 * @see com.frank.math.struct.SparseVector#createZero()
+		 * @see com.frank.math.struct.sparse.SparseVector#createZero()
 		 */
 		@Override
 		protected java.lang.Byte createZero()
@@ -167,7 +167,7 @@ public abstract class SparseVector<T extends Number> implements java.io.Serializ
 		private static final long	serialVersionUID	= -7186556474637084512L;
 
 		/**
-		 * @see com.frank.math.struct.SparseVector#createZero()
+		 * @see com.frank.math.struct.sparse.SparseVector#createZero()
 		 */
 		@Override
 		protected java.lang.Double createZero()
@@ -190,7 +190,7 @@ public abstract class SparseVector<T extends Number> implements java.io.Serializ
 		private static final long	serialVersionUID	= 2028863227359490340L;
 
 		/**
-		 * @see com.frank.math.struct.SparseVector#createZero()
+		 * @see com.frank.math.struct.sparse.SparseVector#createZero()
 		 */
 		@Override
 		protected java.lang.Float createZero()
@@ -213,7 +213,7 @@ public abstract class SparseVector<T extends Number> implements java.io.Serializ
 		private static final long	serialVersionUID	= -8364138264698917392L;
 
 		/**
-		 * @see com.frank.math.struct.SparseVector#createZero()
+		 * @see com.frank.math.struct.sparse.SparseVector#createZero()
 		 */
 		@Override
 		protected java.lang.Integer createZero()
@@ -236,7 +236,7 @@ public abstract class SparseVector<T extends Number> implements java.io.Serializ
 		private static final long	serialVersionUID	= 1949944312065472630L;
 
 		/**
-		 * @see com.frank.math.struct.SparseVector#createZero()
+		 * @see com.frank.math.struct.sparse.SparseVector#createZero()
 		 */
 		@Override
 		protected java.lang.Long createZero()
@@ -259,7 +259,7 @@ public abstract class SparseVector<T extends Number> implements java.io.Serializ
 		private static final long	serialVersionUID	= 7705106671969962265L;
 
 		/**
-		 * @see com.frank.math.struct.SparseVector#createZero()
+		 * @see com.frank.math.struct.sparse.SparseVector#createZero()
 		 */
 		@Override
 		protected java.lang.Short createZero()
